@@ -71,7 +71,6 @@ module.exports = (sequelize, DataTypes) => {
     user.secret = saltGenerate(user.username)
     user.password = hashPass(user.password, user.secret)
     user.active = false
-    console.log(user)
   })
 
   return User;
