@@ -17,8 +17,6 @@ router.get('/:username/edit', UserController.showEditForm);
 router.post('/:username/edit', UserController.updateUser);
 router.get('/testInput', UserController.findAVG);
 
-
-
 // >>>>>>>>>>>>>>>>>> Repairman controller
 router.get('/:username/repairman', RepairmanController.findAll);
 
