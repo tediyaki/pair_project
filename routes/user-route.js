@@ -24,4 +24,12 @@ router.post('/', (req, res) => {
   res.send(req.body);
 });
 
+router.get('/:username/history', UserController.showHistory)
+
+router.get('/:username/edit', UserController.showEditForm)
+router.post('/:username/edit', UserController.updateUser)
+
+router.get('/testInput', UserController.findAVG)
+
+
 module.exports = router
