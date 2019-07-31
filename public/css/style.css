@@ -24,3 +24,7 @@ body,
   top: 7px;
   right: 7px;
 }
+
+.card.login {
+  width: 500px;
+}
