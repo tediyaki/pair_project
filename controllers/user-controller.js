@@ -1,7 +1,20 @@
 const Model = require('../models')
 const hashPass = require('../helper/passwordGenerate')
+const nodemailer = require('nodemailer')
 
 class UserController {
+
+    static verificationEmail(req, res) {
+        User.update({
+            active: true
+        }, {
+            where: {
+                id: req.query.id
+            }
+        })
+            .then(() => res.send('email berhasil diaktivasi'))
+            .catch(err => res.send(err))
+    }
 
     static showLoginPage(req, res) {
         // res.send('helo-login')
@@ -15,11 +28,11 @@ class UserController {
 
     static registerUser(req, res) {
         Model.User.create({
-            name: 'teddy',
-            password: 'tedy123',
+            name: 'Jake',
+            password: 'jake123',
             address: 'Jalan S I M',
-            email: 'teddy123@mail.com',
-            username: 'teddylagi'
+            email: 'jake12@mail.com',
+            username: 'jak3beam'
         }) 
             .then()
             .catch(err => res.send(err.message))
@@ -73,7 +86,7 @@ class UserController {
             item: 'lemari'
         })
         .then(x => res.send('ok'))
-        .catch(err => console.log(err))
+        .catch(err => res.send(err))
     }
 
     static giveRating(req, res) {

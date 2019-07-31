@@ -73,5 +73,33 @@ module.exports = (sequelize, DataTypes) => {
     user.active = false
   })
 
+  // User.addHook('afterCreate', 'giveEmail', (user, options) => {
+  //   const transporter = nodemailer.createTransport({
+  //     host: 'smtp.ethereal.email',
+  //     port: 587,
+  //     auth: {
+  //         user: 'bria.hermann@ethereal.email',
+  //         pass: 'x2ya8zqtXFAfaunjJ7'
+  //     }
+  //   });
+
+  //   let mailOptions = {
+  //     from: '"bria.hermann@ethereal.email', // sender address
+  //     to: user.email, // list of receivers
+  //     subject: 'Email verification ✔', // Subject line
+  //     text: 'Hello world?', // plain text body
+  //     html: `<h1>Please click this link to verify your email</h1> 
+  //           <a href=""></a>`// html body
+  //   };
+
+  //   transporter.sendMail(mailOptions, (err, info) => {
+  //     if(err) {
+  //       console.log(err)
+  //     } else {
+  //       console.log(info.messageId);
+  //     }
+  //   })
+  // })
+
   return User;
 };

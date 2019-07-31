@@ -53,6 +53,27 @@ class Repairman {
     }
   }
 
+  // static registerRepairman(req, res) {
+  //   repairmanModel.create(req.body)
+  //     .then()
+  //     .catch()
+  // }
+
+  // static loginRepairman(req, res) {
+  //   repairmanModel.findOne({
+  //       where: {
+  //           username: req.body.username
+  //       }
+  //   })
+  //       .then(user => {
+  //           if(!user || (user.password !== hashPass(req.body.password, user.secret))) {
+  //               throw Error('wrong username / password')
+  //           } else {
+  //               res.send('login berhasil')
+  //           }
+  //       })
+  //       .catch(err => res.send(err.message))
+  // }
   
 }
 

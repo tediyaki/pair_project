@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
 const UserController = require('../controllers/user-controller');
 const RepairmanController = require('../controllers/repairman-controller');
@@ -11,14 +11,15 @@ router.get('/login', UserController.showLoginPage);
 router.post('/login', UserController.loginUser);
 
 
+
 router.get('/:username/dashboard', UserController.showHistory);
 router.get('/:username/edit', UserController.showEditForm);
 router.post('/:username/edit', UserController.updateUser);
-// router.get('/:username/dashboard', UserController.dashboard);
-router.get('/testInput', UserController.bookRepairman)
-router.get('/testInput2', UserController.giveRating)
 
-// >>>>>>>>>>>>>>>>>> Repairman
+// router.get('/testInput', UserController.registerUser)
+// router.post('/testInput2', UserController.giveRating)
+
+
 router.get('/:username/repairman', RepairmanController.findAll);
 router.post('/:username/repairman', (req, res) => {
   res.send(req.body);
@@ -26,4 +27,4 @@ router.post('/:username/repairman', (req, res) => {
 
 
 
-module.exports = router;
+module.exports = router
