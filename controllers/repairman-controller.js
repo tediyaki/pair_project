@@ -6,7 +6,8 @@ class Repairman {
     if (req.query.q == undefined || req.query.q === "") {
       repairmanModel.findAll()
       .then((data) => {
-        res.render('repairman', {repairman: data});
+        // res.send(req.params.username);
+        res.render('repairman', {repairman: data, username: req.params.username});
       })
       .catch((err) => {
         res.send(err);
@@ -44,13 +45,15 @@ class Repairman {
         }
       })
       .then((data) => {
-        res.render('repairman', {repairman: data});
+        res.render('repairman', {repairman: data, username: req.params.username});
       })
       .catch((err) => {
         res.send(err);
       })
     }
   }
+
+  
 }
 
 module.exports = Repairman;

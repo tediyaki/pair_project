@@ -4,11 +4,13 @@ const hashPass = require('../helper/passwordGenerate')
 class UserController {
 
     static showLoginPage(req, res) {
-        res.send('helo-login')
+        // res.send('helo-login')
+        res.render('login');
     }
-
+    
     static showRegisterPage(req, res) {
         res.send('helo-register')
+        // res.render('login');
     }
 
     static registerUser(req, res) {
