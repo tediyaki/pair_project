@@ -1,5 +1,5 @@
 'use strict';
-const Model = require('./')
+
 module.exports = (sequelize, DataTypes) => {
   class Transaction extends sequelize.Sequelize.Model {
     static associate(models) {
@@ -19,29 +19,31 @@ module.exports = (sequelize, DataTypes) => {
     sequelize
   });
 
-  Transaction.addHook('afterBulkUpdate', 'averageRating', (transaksi, option) => {
-    console.log(transaksi)
+  Transaction.addHook('afterBulkUpdate', 'averageRating', function(transaksi, option) {
+    let self  = this
+    console.log(transaksi.where)
     return Transaction.findAll({
       attributes: [[sequelize.fn('SUM', sequelize.col('repairman_rating')), 'total_rating'], [sequelize.fn('COUNT', sequelize.col('repairman_id')), 'total']]
 
     }, {
         where: {
-            repairman_id: transaksi.repairman_id
+            repairman_id: transaksi.where.repairman_id
         }
     })
     .then(tr => {
-        let average = Number(tr[0].dataValues.total_rating) / Number(tr[0].dataValues.total)
+      let average = Number(tr[0].dataValues.total_rating) / Number(tr[0].dataValues.total)
+      console.log(average)
 
-        return Model.Repairman.update({
+        return self.associations.Repairman.target.update({
             rating: average
         }, {
             where: {
-                id: transaksi.repairman_id
+                id: transaksi.where.repairman_id
             }
         })
         
     })
-    .then(() => console.log(updated))
+    .then(() => console.log('updated rating avg'))
     .catch(err => console.log(err))
       
   })

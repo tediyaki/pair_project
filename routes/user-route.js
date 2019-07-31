@@ -11,12 +11,12 @@ router.get('/login', UserController.showLoginPage);
 router.post('/login', UserController.loginUser);
 
 
-// router.get('/testInput', UserController.findAVG);
 router.get('/:username/dashboard', UserController.showHistory);
 router.get('/:username/edit', UserController.showEditForm);
 router.post('/:username/edit', UserController.updateUser);
 // router.get('/:username/dashboard', UserController.dashboard);
-
+router.get('/testInput', UserController.bookRepairman)
+router.get('/testInput2', UserController.giveRating)
 
 // >>>>>>>>>>>>>>>>>> Repairman
 router.get('/:username/repairman', RepairmanController.findAll);
@@ -25,7 +25,5 @@ router.post('/:username/repairman', (req, res) => {
 });
 
 
-router.get('/testInput', UserController.bookRepairman);
-router.get('/testInput2', UserController.giveRating);
 
 module.exports = router;

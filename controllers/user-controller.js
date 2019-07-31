@@ -72,6 +72,8 @@ class UserController {
             repairman_id: 3,
             item: 'lemari'
         })
+        .then(x => res.send('ok'))
+        .catch(err => console.log(err))
     }
 
     static giveRating(req, res) {
