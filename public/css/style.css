@@ -1,0 +1,17 @@
+body,
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+}
+
+.card-box {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.card {
+  display: block;
+  margin: auto;
+}
