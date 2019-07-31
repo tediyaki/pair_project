@@ -9,7 +9,10 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: false}));
 
-app.use('/user', userRouter)
+app.get('/', (req, res) => {
+  res.redirect('/repairman');
+});
+app.use('/user', userRouter);
 app.use('/repairman', repairmanRouter);
 
 app.listen(PORT);
