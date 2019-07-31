@@ -12,11 +12,14 @@ router.post('/login', UserController.loginUser);
 
 // router.get('/history', UserController)
 router.get('/testInput', UserController.showHistory);
-
 router.get('/:username/history', UserController.showHistory);
+router.get('/:username/edit', UserController.showEditForm);
+router.post('/:username/edit', UserController.updateUser);
+router.get('/testInput', UserController.findAVG);
 
 
-// >>>>>>>>>>>>>>>>>> Repairman
+
+// >>>>>>>>>>>>>>>>>> Repairman controller
 router.get('/:username/repairman', RepairmanController.findAll);
 
 router.post('/', (req, res) => {
