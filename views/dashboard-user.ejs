@@ -25,15 +25,15 @@
               </tr>
             </thead>
             <tbody>
-              <% let temp = master.Transactions; 
+              <% let temp = master.dataValues.Transactions; 
                   if (temp.length > 0) {
-                    master.forEach((el) => { %>
+                    temp.forEach((el) => { %>
                     <tr class="table-primary">
                       <th scope="row">1</th>
-                      <td>Chair</td>
-                      <td>Thornton</td>
-                      <td>$10020</td>
-                      <td>23 Januari</td>
+                      <td><%= el.dataValues.item %></td>
+                      <td><%= el.dataValues.Repairman.dataValues.username %></td>
+                      <td><%= el.dataValues.Repairman.dataValues.cost %></td>
+                      <td><%= el.dataValues.booked_at %></td>
                       <td></td>
                       <td>*****</td>
                       <td><button type="button" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure to cancel?');">Cancel</button></td>

@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     repairman_rating: DataTypes.INTEGER,
     completed: DataTypes.BOOLEAN,
     comment: DataTypes.STRING,
-    warranty: DataTypes.DATE
+    warranty: DataTypes.DATE,
+    booked_at: DataTypes.DATE
   }, {
     sequelize
   });

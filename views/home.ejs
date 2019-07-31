@@ -29,6 +29,7 @@
           <div class="modal-body">
             <input type="text" name="repairman_id">
             <input type="text" name="username" value="<%= username %>">
+            <input type="text" name="specialist">
             <div class="input-group flex-nowrap">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="addon-wrapping"><i class="far fa-calendar-check"></i></span>
@@ -47,13 +48,11 @@
   </div>
   
   <script type="text/javascript">
-    $('#datepicker').datepicker({
-        uiLibrary: 'bootstrap4'
-    });
-    
     function transDataModal(data) {
       let id = data.getAttribute("temp-id");
+      let specialist = data.getAttribute("temp-specialist");
       $('.modal .modal-body input[name=repairman_id]').val(id);
+      $('.modal .modal-body input[name=specialist]').val(specialist);
     }
 
     $(".datepicker").datepicker({

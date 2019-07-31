@@ -49,7 +49,8 @@ class UserController {
         Model.User.update(req.body)
     }
 
-    static showHistory(req, res) {
+    static showDashboard(req, res) {
+        // console.log(req.params.username)
         Model.User.findOne({
             where: {
                 username: req.params.username
@@ -60,20 +61,36 @@ class UserController {
             }]
         })
 		.then(tr => {
-			res.render('dashboard-user', {master: tr});
-			// res.send(tr.Transactions);
+            console.log(tr.dataValues.Transactions);
+            res.render('dashboard-user', {master: tr});
+			// res.send(tr.Transactions.map(x => x.dataValues));
+            // res.send(tr.dataValues.Transactions);
+            
 		})
-		.catch(err => res.send(err))
+		.catch(err => {
+            console.log(err);
+            res.send(err)
+        })
     }
 
     static bookRepairman(req, res) {
-        Model.Transaction.create({
-            user_id: 11,
-            repairman_id: 3,
-            item: 'lemari'
+        Model.User.findOne({
+            where: {
+                username: req.body.username
+            }
         })
-        .then(x => res.send('ok'))
-        .catch(err => console.log(err))
+        .then((one) => {
+            return Model.Transaction.create({
+                user_id: one.id,
+                repairman_id: req.body.repairman_id,
+                item: req.body.specialist,
+                booked_at: new Date(req.body.date)
+            });
+        })
+        .then(x => {
+            res.render('alert', {status: 'success'});
+        })
+        .catch(err => console.log(err));
     }
 
     static giveRating(req, res) {

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('templates/head'); %>
+<body>
+
+  <input class="input" type="hidden" value="<%= status %>">
+  <!-- <input class="input" type="text" value="success"> -->
+
+  <script src="js/sweetalert2.js"></script>
+  <script>
+    // function sweetSuccess() {
+    //   Swal.fire(
+    //     'Good job!',
+    //     'You clicked the button!',
+    //     'success'
+    //   );
+    // }
+
+    function sweetSuccess() {
+      Swal.fire({
+        position: 'center',
+        type: 'success',
+        title: 'Terima kasih telah memesan!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+
+    let input = $('.input').val();
+
+    let interval = setInterval(() => {
+      switch (input) {
+        case "success":
+          sweetSuccess();
+          break;
+      }
+      
+      clearInterval(interval);
+      setInterval(() => {
+        window.location.href = '/user/johD/repairman/';
+      }, 1000);
+    }, 250);
+    
+
+  </script>
+
+</body>
+</html>
