@@ -33,7 +33,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text" id="addon-wrapping"><i class="far fa-calendar-check"></i></span>
               </div>
-              <input class="datepicker form-control" data-date-format="mm/dd/yyyy" required>
+              <input class="datepicker form-control" name="date" required>
             </div>
             
           </div>
@@ -47,22 +47,20 @@
   </div>
   
   <script type="text/javascript">
-      $('#datepicker').datepicker({
-          uiLibrary: 'bootstrap4'
-      });
-      
-      function transDataModal(data) {
-        let id = data.getAttribute("temp-id");
-        $('.modal .modal-body input[name=repairman_id]').val(id);
-      }
+    $('#datepicker').datepicker({
+        uiLibrary: 'bootstrap4'
+    });
+    
+    function transDataModal(data) {
+      let id = data.getAttribute("temp-id");
+      $('.modal .modal-body input[name=repairman_id]').val(id);
+    }
 
-      $(function(){
-        $(".datepicker").datepicker({
-            format: 'yyyy-mm-dd',
-            autoclose: true,
-            todayHighlight: true,
-        });
-      });
+    $(".datepicker").datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        todayHighlight: true,
+    });
   </script>
 </body>
 </html>
