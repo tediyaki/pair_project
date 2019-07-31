@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('templates/head'); %>
+<body>
+
+  <%- include('templates/navbar', {username, home: true}); %>
+
+  <section id="big-box">
+    <div class="container">
+      <div class="row">
+      <% repairman.forEach((el) => { %>
+        <%- include('templates/card-repairman', {id: el.id, name: el.username, specialist: el.specialist, cost: el.cost, rating: el.rating, avatar: el.avatar}); %>
+      <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="" method="POST">
+          <div class="modal-body">
+            <input type="text" name="repairman_id">
+            <input type="text" name="username" value="<%= username %>">
+            <input id="datepicker" width="276" name="date" required/>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">HIRE NOW!</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+      $('#datepicker').datepicker({
+          uiLibrary: 'bootstrap4'
+      });
+      
+      function transDataModal(data) {
+        let id = data.getAttribute("temp-id");
+        $('.modal .modal-body input[name=repairman_id]').val(id);
+      }
+  </script>
+</body>
+</html>

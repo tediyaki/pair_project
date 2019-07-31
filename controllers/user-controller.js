@@ -4,11 +4,13 @@ const hashPass = require('../helper/passwordGenerate')
 class UserController {
 
     static showLoginPage(req, res) {
-        res.send('helo-login')
+        // res.send('helo-login')
+        res.render('login');
     }
-
+    
     static showRegisterPage(req, res) {
         res.send('helo-register')
+        // res.render('login');
     }
 
     static registerUser(req, res) {
@@ -50,15 +52,18 @@ class UserController {
     static showHistory(req, res) {
         Model.User.findOne({
             where: {
-                username: 'manbill12'
+                username: req.params.username
             },
             include: [{
                 model: Model.Transaction,
                 include: [Model.Repairman]
             }]
         })
-            .then(tr => res.send(tr))
-            .catch(err => res.send(err))
+		.then(tr => {
+			res.render('dashboard-user', {master: tr});
+			// res.send(tr.Transactions);
+		})
+		.catch(err => res.send(err))
     }
 
     static bookRepairman(req, res) {
@@ -87,7 +92,24 @@ class UserController {
             .catch(err => res.send(err))
     }
 
+<<<<<<< HEAD
 
+=======
+    static findAVG(req, params) {
+        Model.Transaction.findAll({
+            attributes: ['repairman_id', [Model.sequelize.fn('SUM', Model.sequelize.col('rating'))/Model.sequelize.fn('COUNT', Model.sequelize.col('rating')), 'avg_rating']]        
+          }, {
+              where: {
+                  id: 1
+              }
+          })
+          .then(tr => res.send(tr))
+	}
+	
+	static dashboard(req, res) {
+		res.render('dashboard-user');
+	}
+>>>>>>> a0c19ced0c2cadafcfce37b63fff9c680efcfae0
 }
 
 module.exports = UserController

@@ -1,15 +1,18 @@
-<div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title"><%= name %></h5>
-    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, ipsa?</p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Specialist <%= specialist %></li>
-    <li class="list-group-item">Cost <%= cost %></li>
-    <li class="list-group-item">Rating <%= rating %></li>
-  </ul>
-  <div class="card-body">
-    <button type="button" class="btn btn-outline-primary btn-sm">HIRE</button>
+<div class="col-md-4 card-box">
+  <div class="card" style="width: 18rem;">
+    <img src="<%= avatar %>" class="card-img-top" alt="ava">
+    <div class="card-body">
+      <h5 class="card-title"><%= name %></h5>
+      <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, ipsa?</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Specialist <%= specialist %></li>
+      <li class="list-group-item">Cost <%= cost %></li>
+      <li class="list-group-item">Rating <%= rating %></li>
+    </ul>
+    <div class="card-body">
+      <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#exampleModal" temp-id="<%= id %>" onclick="transDataModal(this)">HIRE</button>
+      <!-- <button type="button" class="btn btn-outline-primary btn-sm">HIRE</button> -->
+    </div>
   </div>
 </div>
