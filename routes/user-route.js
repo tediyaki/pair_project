@@ -10,6 +10,8 @@ router.get('/login', UserController.showLoginPage)
 router.post('/login', UserController.loginUser)
 
 // router.get('/history', UserController)
-router.get('/testInput', UserController.registerUser)
+router.get('/testInput', UserController.showHistory)
+
+router.get(':username/history', UserController.showHistory)
 
 module.exports = router
