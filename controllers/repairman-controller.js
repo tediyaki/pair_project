@@ -7,7 +7,7 @@ class Repairman {
       repairmanModel.findAll()
       .then((data) => {
         // res.send(req.params.username);
-        res.render('repairman', {repairman: data, username: req.params.username});
+        res.render('home', {repairman: data, username: req.params.username});
       })
       .catch((err) => {
         res.send(err);
@@ -45,7 +45,7 @@ class Repairman {
         }
       })
       .then((data) => {
-        res.render('repairman', {repairman: data, username: req.params.username});
+        res.render('home', {repairman: data, username: req.params.username});
       })
       .catch((err) => {
         res.send(err);

@@ -6,7 +6,7 @@ const userRouter = require('./routes/user-route');
 // const repairmanRouter = require('./routes/repairman-route');
 
 app.set('view engine', 'ejs');
-app.use(express.static('public'));
+app.use(['/user/:username/repairman', '/user/johD/dashboard'], express.static('public'));
 app.use(express.urlencoded({extended: false}));
 
 app.use('/user', userRouter);

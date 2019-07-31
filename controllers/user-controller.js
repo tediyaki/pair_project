@@ -52,15 +52,18 @@ class UserController {
     static showHistory(req, res) {
         Model.User.findOne({
             where: {
-                username: 'manbill12'
+                username: req.params.username
             },
             include: [{
                 model: Model.Transaction,
                 include: [Model.Repairman]
             }]
         })
-            .then(tr => res.send(tr))
-            .catch(err => res.send(err))
+		.then(tr => {
+			res.render('dashboard-user', {master: tr});
+			// res.send(tr.Transactions);
+		})
+		.catch(err => res.send(err))
     }
 
     static bookRepairman(req, res) {
@@ -98,7 +101,11 @@ class UserController {
               }
           })
           .then(tr => res.send(tr))
-    }
+	}
+	
+	static dashboard(req, res) {
+		res.render('dashboard-user');
+	}
 }
 
 module.exports = UserController

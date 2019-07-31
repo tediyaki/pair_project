@@ -3,13 +3,13 @@
   <%- include('templates/head'); %>
 <body>
 
-  <%- include('templates/navbar'); %>
+  <%- include('templates/navbar', {username, home: true}); %>
 
   <section id="big-box">
     <div class="container">
       <div class="row">
       <% repairman.forEach((el) => { %>
-        <%- include('templates/card-repairman', {id: el.id, name: el.username, specialist: el.specialist, cost: el.cost, rating: el.rating}); %>
+        <%- include('templates/card-repairman', {id: el.id, name: el.username, specialist: el.specialist, cost: el.cost, rating: el.rating, avatar: el.avatar}); %>
       <% }) %>
       </div>
     </div>
@@ -29,7 +29,7 @@
           <div class="modal-body">
             <input type="text" name="repairman_id">
             <input type="text" name="username" value="<%= username %>">
-            <input id="datepicker" width="276" required/>
+            <input id="datepicker" width="276" name="date" required/>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -39,7 +39,6 @@
       </div>
     </div>
   </div>
-
   
   <script>
       $('#datepicker').datepicker({

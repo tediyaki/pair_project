@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('templates/head'); %>
+<body>
+  <%- include('templates/navbar', {username: master.username, home: false}); %>
+    <div class="jumbotron">
+        <div class="ava-img">
+          <img src="img/ava/3.png" alt="ava1">
+        </div>
+      </div>
+    
+      <section id="history-order">
+        <div class="container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Item</th>
+                <th scope="col">Repairman</th>
+                <th scope="col">Cost</th>
+                <th scope="col">Date</th>
+                <th scope="col">Warranty</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% let temp = master.Transactions; 
+                  if (temp.length > 0) {
+                    master.forEach((el) => { %>
+                    <tr class="table-primary">
+                      <th scope="row">1</th>
+                      <td>Chair</td>
+                      <td>Thornton</td>
+                      <td>$10020</td>
+                      <td>23 Januari</td>
+                      <td></td>
+                      <td>*****</td>
+                      <td><button type="button" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure to cancel?');">Cancel</button></td>
+                    </tr>
+                    <% })
+              } else { %>
+                <tr>
+                  <td colspan="8" class="text-center display-4">Empty</td>
+                </tr>
+              <% } %>
+              <!-- <tr class="table-success">
+                <th scope="row">2</th>
+                <td>Table</td>
+                <td>Otto</td>
+                <td>$10000</td>
+                <td>23 Januari</td>
+                <td>Moment JS</td>
+                <td>***</td>
+                <td>
+                  <button type="button" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure to delete?');">Delete</button>
+                </td> -->
+              <!-- </tr>
+              <tr class="table-warning">
+                <th scope="row">3</th>
+                <td>Table</td>
+                <td>Otto</td>
+                <td>$10000</td>
+                <td>23 Januari</td>
+                <td>25 Januari</td>
+                <td><button type="button" class="btn btn-outline-danger btn-sm" disabled>Expired</button></td>
+                <td>
+                  <button type="button" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure to delete?');">Delete</button>
+                </td>
+              </tr> -->
+            </tbody>
+          </table> 
+        </div>
+      </section>
+</body>
+</html>
