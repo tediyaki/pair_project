@@ -29,7 +29,13 @@
           <div class="modal-body">
             <input type="text" name="repairman_id">
             <input type="text" name="username" value="<%= username %>">
-            <input id="datepicker" width="276" name="date" required/>
+            <div class="input-group flex-nowrap">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="addon-wrapping"><i class="far fa-calendar-check"></i></span>
+              </div>
+              <input class="datepicker form-control" data-date-format="mm/dd/yyyy" required>
+            </div>
+            
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -40,7 +46,7 @@
     </div>
   </div>
   
-  <script>
+  <script type="text/javascript">
       $('#datepicker').datepicker({
           uiLibrary: 'bootstrap4'
       });
@@ -49,6 +55,14 @@
         let id = data.getAttribute("temp-id");
         $('.modal .modal-body input[name=repairman_id]').val(id);
       }
+
+      $(function(){
+        $(".datepicker").datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true,
+        });
+      });
   </script>
 </body>
 </html>
