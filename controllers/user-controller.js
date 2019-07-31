@@ -46,10 +46,12 @@ class UserController {
     static showHistory(req, res) {
         Model.User.findOne({
             where: {
-                username: req.params.username
+                username: 'teddylagi'
             },
-
+            include: [Model.Transaction]
         })
+            .then(tr => res.send(tr))
+            .catch(err => res.send(err))
     }
 
     // static updateTransaction
