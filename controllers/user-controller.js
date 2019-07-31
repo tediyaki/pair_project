@@ -78,13 +78,13 @@ class UserController {
 
     static giveRating(req, res) {
         Model.Transaction.update({
-            repairman_rating: 2,
+            rating: 5,
             completed: true,
         }, {
             where: {
                 user_id: 11,
                 repairman_id: 3,
-                completed: false
+                completed: false || null
             }
         })
             .then(a => {
@@ -93,7 +93,6 @@ class UserController {
             })
             .catch(err => res.send(err))
     }
-
 }
 
 module.exports = UserController

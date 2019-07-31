@@ -1,5 +1,5 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
 const UserController = require('../controllers/user-controller');
 const RepairmanController = require('../controllers/repairman-controller');
@@ -10,8 +10,6 @@ router.post('/register', UserController.registerUser);
 router.get('/login', UserController.showLoginPage);
 router.post('/login', UserController.loginUser);
 
-
-// router.get('/history', UserController)
 
 router.get('/:username/dashboard', UserController.showHistory);
 router.get('/:username/edit', UserController.showEditForm);
@@ -28,4 +26,4 @@ router.post('/:username/repairman', (req, res) => {
 
 
 
-module.exports = router
+module.exports = router;
