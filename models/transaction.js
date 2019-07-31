@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
     user_id: DataTypes.INTEGER,
     repairman_id: DataTypes.INTEGER,
     item: DataTypes.STRING,
-    rating: DataTypes.INTEGER
+    rating: DataTypes.INTEGER,
+    completed: DataTypes.BOOLEAN,
+    comment: DataTypes.STRING,
+    warranty: DataTypes.DATE
   }, {
     sequelize
   });
