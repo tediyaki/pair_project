@@ -12,13 +12,13 @@ router.post('/login', UserController.loginUser);
 
 
 // router.get('/history', UserController)
-router.get('/testInput', UserController.showHistory);
-router.get('/testInput', UserController.findAVG);
+
 router.get('/:username/dashboard', UserController.showHistory);
 router.get('/:username/edit', UserController.showEditForm);
 router.post('/:username/edit', UserController.updateUser);
 // router.get('/:username/dashboard', UserController.dashboard);
-
+router.get('/testInput', UserController.bookRepairman)
+router.get('/testInput2', UserController.giveRating)
 
 // >>>>>>>>>>>>>>>>>> Repairman
 router.get('/:username/repairman', RepairmanController.findAll);
@@ -27,10 +27,5 @@ router.post('/:username/repairman', (req, res) => {
 });
 
 
-<<<<<<< HEAD
-router.get('/testInput', UserController.bookRepairman)
-router.get('/testInput2', UserController.giveRating)
-=======
->>>>>>> a0c19ced0c2cadafcfce37b63fff9c680efcfae0
 
 module.exports = router
