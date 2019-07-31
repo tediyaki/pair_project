@@ -7,6 +7,6 @@ const userRouter = require('./routes/user-route')
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({extended: false}))
 
-app.use('', userRouter)
+app.use('/user', userRouter)
 
 app.listen(PORT)

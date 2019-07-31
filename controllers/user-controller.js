@@ -1,26 +1,69 @@
 const Model = require('../models')
+const hashPass = require('../helper/passwordGenerate')
 
 class UserController {
-    static addUser(req, res) {
-        Model.User.create(req.body) 
+
+    static showLoginPage(req, res) {
+        res.send('helo-login')
+    }
+
+    static showRegisterPage(req, res) {
+        res.send('helo-register')
+    }
+
+    static registerUser(req, res) {
+        Model.User.create({
+            name: 'teddy',
+            password: 'tedy123',
+            address: 'Jalan S I M',
+            email: 'teddy123@mail.com',
+            username: 'teddylagi'
+        }) 
             .then()
-            .catch()
+            .catch(err => res.send(err.message))
     }
 
-    static updateUser(req, res) {
-        Model.User.update()
-    }
-
-    static readTransaction(req, res) {
-        Model.Transaction.findAll({
+    static loginUser(req, res) {
+        Model.User.findOne({
             where: {
-                id: req.params.id,
-                include: {
-                    
-                }
+                username: req.body.username
             }
         })
+            .then(user => {
+                if(!user || (user.password !== hashPass(req.body.password, user.secret))) {
+                    throw Error('wrong username / password')
+                } else {
+                    res.send('login berhasil')
+                }
+            })
+            .catch(err => res.send(err.message))
     }
+
+    // static updateUser(req, res) {
+    //     Model.User.update()
+    // }
+
+    static showHistory(req, res) {
+        Model.User.findOne({
+            where: {
+                username: req.params.username
+            },
+
+        })
+    }
+
+    // static updateTransaction
+
+    // static readTransaction(req, res) {
+    //     Model.Transaction.findAll({
+    //         where: {
+    //             id: req.params.id,
+    //             include: {
+                    
+    //             }
+    //         }
+    //     })
+    // }
 }
 
 module.exports = UserController
