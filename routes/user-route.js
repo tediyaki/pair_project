@@ -14,6 +14,7 @@ router.get('/:username/history', UserController.showHistory)
 router.get('/:username/edit', UserController.showEditForm)
 router.post('/:username/edit', UserController.updateUser)
 
-router.get('/testInput', UserController.findAVG)
+router.get('/testInput', UserController.bookRepairman)
+router.get('/testInput2', UserController.giveRating)
 
 module.exports = router

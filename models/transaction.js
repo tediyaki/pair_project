@@ -1,5 +1,5 @@
 'use strict';
-
+const Model = require('./')
 module.exports = (sequelize, DataTypes) => {
   class Transaction extends sequelize.Sequelize.Model {
     static associate(models) {
@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     user_id: DataTypes.INTEGER,
     repairman_id: DataTypes.INTEGER,
     item: DataTypes.STRING,
-    rating: DataTypes.INTEGER,
+    repairman_rating: DataTypes.INTEGER,
     completed: DataTypes.BOOLEAN,
     comment: DataTypes.STRING,
     warranty: DataTypes.DATE
@@ -20,13 +20,33 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Transaction.addHook('afterBulkUpdate', 'averageRating', (transaksi, option) => {
+    console.log(transaksi)
+    return Transaction.findAll({
+      attributes: [[sequelize.fn('SUM', sequelize.col('repairman_rating')), 'total_rating'], [sequelize.fn('COUNT', sequelize.col('repairman_id')), 'total']]
 
-      Transaction.findAll({
-        attributes: ['repairman_id', [sequelize.fn('SUM', sequelize.col('rating'))/sequelize.fn('COUNT', sequelize.col('rating')), 'avg_rating']]        
-      })
+    }, {
+        where: {
+            repairman_id: transaksi.repairman_id
+        }
+    })
+    .then(tr => {
+        let average = Number(tr[0].dataValues.total_rating) / Number(tr[0].dataValues.total)
+
+        return Model.Repairman.update({
+            rating: average
+        }, {
+            where: {
+                id: transaksi.repairman_id
+            }
+        })
+        
+    })
+    .then(() => console.log(updated))
+    .catch(err => console.log(err))
+      
   })
 
-  Transaction.addHook('afterCreate', 'firstCreate', (transaksi, option) => {
+  Transaction.addHook('beforeCreate', 'firstCreate', (transaksi, option) => {
     transaksi.completed = false;
   })
 
