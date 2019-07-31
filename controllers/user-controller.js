@@ -41,33 +41,64 @@ class UserController {
             .catch(err => res.send(err.message))
     }
 
-    // static updateUser(req, res) {
-    //     Model.User.update()
-    // }
+    static showEditForm(req, res) {
+        res.send('ini edit form')
+    }
+
+    static updateUser(req, res) {
+        Model.User.update(req.body)
+    }
 
     static showHistory(req, res) {
         Model.User.findOne({
             where: {
-                username: 'teddylagi'
+                username: 'manbill12'
             },
-            include: [Model.Transaction]
+            include: [{
+                model: Model.Transaction,
+                include: [Model.Repairman]
+            }]
         })
             .then(tr => res.send(tr))
             .catch(err => res.send(err))
     }
 
-    // static updateTransaction
+    static bookRepairman(req, res) {
+        Model.Transaction.create({
+            user_id: 11,
+            repairman_id: 3,
+            item: 'lemari'
+        })
+    }
 
-    // static readTransaction(req, res) {
-    //     Model.Transaction.findAll({
-    //         where: {
-    //             id: req.params.id,
-    //             include: {
-                    
-    //             }
-    //         }
-    //     })
-    // }
+    static giveRating(req, res) {
+        Model.Transaction.update({
+            rating: 5,
+            completed: true,
+        }, {
+            where: {
+                user_id: 11,
+                repairman_id: 3,
+                completed: false || null
+            }
+        })
+            .then(a => {
+                console.log(a, "berhasil diupdate")
+                res.send('diupdate')
+            })
+            .catch(err => res.send(err))
+    }
+
+    static findAVG(req, params) {
+        Model.Transaction.findAll({
+            attributes: ['repairman_id', [Model.sequelize.fn('SUM', Model.sequelize.col('rating'))/Model.sequelize.fn('COUNT', Model.sequelize.col('rating')), 'avg_rating']]        
+          }, {
+              where: {
+                  id: 1
+              }
+          })
+          .then(tr => res.send(tr))
+    }
 }
 
 module.exports = UserController
