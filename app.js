@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = 2420;
+const PORT = process.env.PORT || 2420;
 const session = require('express-session')
 const moment = require('moment');
 
