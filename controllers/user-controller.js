@@ -1,6 +1,7 @@
 const Model = require('../models');
 const hashPass = require('../helper/passwordGenerate');
-const countDate = require('../helper/countDate');
+const countDate = require('../helper/momentDate').countDate;
+const convertWarranty = require('../helper/momentDate').convertWarranty;
 const displayDate = require('../helper/displayDate');
 
 class UserController {
@@ -189,7 +190,7 @@ class UserController {
             rating: req.body.rating,
             comment: req.body.comment,
             repairman_rating: +req.body.rating,
-            warranty: new Date(),
+            warranty: convertWarranty(21),
             completed: true
         }, {
             where: {

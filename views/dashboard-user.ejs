@@ -58,7 +58,7 @@
                     <td><%= el.dataValues.Repairman.dataValues.username %></td>
                     <td><%= el.dataValues.Repairman.dataValues.cost %></td>
                     <td><%= displayDate(el.dataValues.booked_at, 'dddd, D MMMM YYYY') %></td>
-                    <td><%= countDate(el.dataValues.warranty, daysWarranty) %></td>
+                    <td><%= countDate(el.dataValues.warranty) %></td>
                     <td>
                       <% let total = 0;
                       for (let i = total; i < el.dataValues.repairman_rating; i++) { total++%>

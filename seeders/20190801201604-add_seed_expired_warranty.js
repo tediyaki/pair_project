@@ -14,7 +14,7 @@ module.exports = {
         completed: true,
         warranty: '2018-08-02 02:07:46',
         booked_at: '2018-08-23 02:07:46',
-        repairman_ratting: 4,
+        repairman_rating: 4,
         createdAt: new Date(),
         updatedAt: new Date()
       }, {
@@ -24,7 +24,7 @@ module.exports = {
         completed: true,
         warranty: '2019-08-05 02:07:46',
         booked_at: '2019-07-26 02:07:46',
-        repairman_ratting: 5,
+        repairman_rating: 5,
         createdAt: new Date(),
         updatedAt: new Date()
       }, {
@@ -34,7 +34,7 @@ module.exports = {
         completed: true,
         warranty: '2018-08-02 02:07:46',
         booked_at: '2018-08-23 02:07:46',
-        repairman_ratting: 3,
+        repairman_rating: 3,
         createdAt: new Date(),
         updatedAt: new Date()
       }, {
@@ -44,7 +44,7 @@ module.exports = {
         completed: true,
         warranty: '2019-01-02 02:07:46',
         booked_at: '2019-01-23 02:07:46',
-        repairman_ratting: 2,
+        repairman_rating: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       }], {});
