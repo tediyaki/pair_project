@@ -31,7 +31,7 @@ router.post('/:username/edit', userAuth, UserController.updateUser);
 
 // router.get('/testInput', UserController.registerUser)
 
-router.get('/:username/repairman', RepairmanController.findAll);
+router.get('/:username/repairman', userAuth, RepairmanController.findAll);
 router.post('/:username/repairman', UserController.bookRepairman);
 
 module.exports = router

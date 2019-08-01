@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    avatar: DataTypes.BLOB,
+    photo: DataTypes.STRING,
     active: DataTypes.BOOLEAN,
     secret: DataTypes.STRING,
     username: {
