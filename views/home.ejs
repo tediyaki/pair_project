@@ -9,7 +9,7 @@
     <div class="container">
       <div class="row">
       <% repairman.forEach((el) => { %>
-        <%- include('templates/card-repairman', {id: el.id, name: el.username, specialist: el.specialist, cost: el.cost, rating: el.rating, avatar: el.avatar}); %>
+        <%- include('templates/card-repairman', {id: el.id, name: el.username, specialist: el.specialist, cost: el.cost, rating: el.rating, photo: el.photo}); %>
       <% }) %>
       </div>
     </div>

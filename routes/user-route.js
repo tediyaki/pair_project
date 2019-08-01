@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 
 router.use(['/register', '/login', '/:username/dashboard', '/:username/edit', '/:username/del/:transaction_id', '/:username/repairman'], express.static('public'));
+
 const userAuth = require('../middleware/authUser').userAuthentication;
 const alreadyLogin = require('../middleware/authUser').userAlreadyLogin;
 

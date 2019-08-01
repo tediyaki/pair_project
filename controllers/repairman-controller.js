@@ -48,7 +48,6 @@ class Repairman {
       }
     })
     .then((data) => {
-      // console.log(data.dataValues.avatar);
       res.render('dashboard-repairman', {data});
       // res.send(data.photo)
     })
