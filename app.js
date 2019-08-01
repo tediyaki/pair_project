@@ -15,7 +15,7 @@ app.use(session({
   saveUninitialized: true
 }))
 
-app.use(['/error', '/user/:username/repairman', '/user/:username/dashboard', '/user/login'], express.static('public'));
+app.use(['/error', '/user/:username/repairman', '/user/:username/dashboard', '/user/login', '/user/register'], express.static('public'));
 app.use(express.urlencoded({extended: false}));
 
 app.get('/', (req, res) => {

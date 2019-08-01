@@ -51,7 +51,7 @@ class UserController {
                 }
                 res.redirect(`/user/${req.session.currentUser.name}/dashboard`)
             })
-            .catch(err => res.send(err.message))
+            .catch(err => res.render('login', {err: true, msg: err.message}))
         }
     }
 
@@ -75,22 +75,58 @@ class UserController {
                         role: "user"
                     }
 
-                    console.log('berhasil login')
                     res.redirect(`/user/${user.username}/dashboard`)
                 }
             })
             .catch(err => {
-                console.log('wrong username/pass')
+  
                 res.send(err.message)
             })
     }
 
     static showEditForm(req, res) {
-        res.send('ini edit form')
+        Model.User.findOne({
+            where: {
+                username: req.params.username
+            }
+        })
+            .then(user => {
+                res.render('edit-user', {user})
+            })
+            .catch(err => {
+                res.send(err)
+            })       
     }
 
     static updateUser(req, res) {
-        Model.User.update(req.body)
+        if(req.body.passwordEdit !== req.body.password_confirmation) {
+            throw Error('Konfirmasi Password Harus Sesuai')
+        } else {
+            Model.User.findOne({
+                where: {
+                    username: req.params.username
+                }
+            })
+            .then((one) => {
+                return Model.User.update({
+                    name: req.body.full_name,
+                    password: hashPass(req.body.passwordEdit, one.secret),
+                    address: req.body.address,
+                    email: req.body.email,
+                    username: req.body.username
+                }, {
+                    where: {
+                        username: req.params.username
+                    }
+                })
+            })
+            .then(() => {
+                req.session.currentUser.name = req.body.username
+                res.redirect(`/user/${req.body.username}/dashboard`)
+            })
+            .catch(err => res.send(err))
+        }
+        
     }
 
     static showDashboard(req, res) {

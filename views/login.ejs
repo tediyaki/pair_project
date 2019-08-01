@@ -79,9 +79,10 @@
         </div>
       </div>
     </div>
+    
   </div>
-  <%if(typeof err === 'undefined') {%>
-    <h2>error</h2>
+  <%if(typeof err !== 'undefined') {%>
+    <h3><%= msg %></h3>
   <%} %>
 </body>
 </html>

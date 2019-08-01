@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     .then(tr => {
       console.log(tr)
       let average = Number(tr[0].dataValues.total_rating) / Number(tr[0].dataValues.total)
-  
+      
         return self.associations.Repairman.target.update({
             rating: average.toFixed(1)
         }, {
