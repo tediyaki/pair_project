@@ -10,7 +10,7 @@
       <li class="list-group-item">Cost <%= cost %></li>
       <li class="list-group-item">Rating 
         <% let total = 0;
-        for (let i = 0; i < rating; i++) { total++%>
+        for (let i = total; i < rating; i++) { total++%>
           <span class="fa fa-star checked" style="color: orange"></span>
         <% } 
         for (let i = total; i < 5; i++) { %>

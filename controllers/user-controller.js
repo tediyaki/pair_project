@@ -122,24 +122,27 @@ class UserController {
     }
 
     static bookRepairman(req, res) {
-        Model.User.findOne({
-            where: {
-                username: req.body.username
-            }
-        })
-        .then((one) => {
-            return Model.Transaction.create({
-                user_id: one.id,
-                repairman_id: req.body.repairman_id,
-                item: req.body.specialist,
-                booked_at: new Date(req.body.date)
-            });
-        })
-        .then(x => {
-            // console.log(`/user/${req.params.username}/dashboard/`);
-            res.render('alert', {url: `/user/${req.params.username}/dashboard/`, status: "pesan-sukses"});
-        })
-        .catch(err => console.log(err));
+        if (new Date(req.body.date) - new Date() > 0) {
+            Model.User.findOne({
+                where: {
+                    username: req.body.username
+                }
+            })
+            .then((one) => {
+                return Model.Transaction.create({
+                    user_id: one.id,
+                    repairman_id: req.body.repairman_id,
+                    item: req.body.specialist,
+                    booked_at: new Date(req.body.date)
+                });
+            })
+            .then(() => {
+                res.render('alert', {url: `/user/${req.params.username}/dashboard/`, status: "pesan-sukses"});
+            })
+            .catch(err => console.log(err));
+        } else {
+            res.render('alert', {url: `/user/${req.params.username}/home/`, status: "gagal-tgl"});
+        };
     }
 
     static giveRating(req, res) {

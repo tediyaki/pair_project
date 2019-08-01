@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const repairman = require('../controllers/repairman-controller');
 
-router.use(['/:username/dashboard', '/:username/edit', '/:username/del/:transaction_id', '/:username/repairman'], express.static('public'));
+router.use(['/:username/dashboard', '/:username/edit', '/:username/del/:transaction_id', '/:username/home'], express.static('public'));
 
 // router.get('/register', repairman.showRegisterPage);
 // router.post('/register', repairman.registerRepairman);
