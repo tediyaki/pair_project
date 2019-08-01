@@ -11,18 +11,19 @@ const RepairmanController = require('../controllers/repairman-controller');
 router.get('/logout', UserController.logout);
 router.get('/:username/verify/:token', UserController.verificationEmail);
 
-router.get('/register', alreadyLogin, UserController.showRegisterPage);
-router.post('/register', UserController.registerUser);
+// router.get('/register', alreadyLogin, UserController.showRegisterPage);
+
 
 router.get('/login', alreadyLogin, UserController.showLoginPage);
 router.post('/login', UserController.loginUser);
+router.post('/register', UserController.registerUser);
 
-router.get('/:username/dashboard', UserController.showDashboard);
+router.get('/:username/dashboard', userAuth, UserController.showDashboard);
 
 router.get('/:username/edit', userAuth, UserController.showEditForm);
 router.post('/:username/edit', UserController.updateUser);
 
-router.get('/:username/del/:transaction_id', UserController.deleteHistory);
+router.get('/:username/del/:transaction_id', userAuth, UserController.deleteHistory);
 router.post('/:username/dashboard', UserController.giveRating)
 
 router.get('/:username/dashboard', userAuth, UserController.showDashboard);

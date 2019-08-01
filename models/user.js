@@ -20,23 +20,23 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: {
           args: true,
           msg: "Email format is incorrect"
+        },
+        mustUnique: function(value) {
+          return User.findOne({
+            where: {
+              email: value,
+              id: {
+                [Op.ne]: this.id
+              }
+            }
+          })
+            .then(mail => {
+              if(mail) {
+                throw new Error("This email is already in use")
+              }
+            })
+            .catch(err => {throw err})
         }
-        // mustUnique: function(value) {
-        //   return User.findOne({
-        //     where: {
-        //       email: value,
-        //       id: {
-        //         [Op.ne]: this.id
-        //       }
-        //     }
-        //   })
-        //     .then(mail => {
-        //       if(mail) {
-        //         throw new Error("This email is already in use")
-        //       }
-        //     })
-        //     .catch(err => {throw err})
-        // }
       }
     },
     avatar: DataTypes.BLOB,
