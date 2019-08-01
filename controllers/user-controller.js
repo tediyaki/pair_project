@@ -33,11 +33,6 @@ class UserController {
         res.render('login');
     }
     
-    // static showRegisterPage(req, res) {
-    //     res.send('helo-register')
-    //     // res.render('login');
-    // }
-
     static registerUser(req, res) {
         if(req.body.passwordRegister !== req.body.password_confirmation) {
             res.send("tidak sama")
@@ -49,7 +44,13 @@ class UserController {
             address: req.body.address,
             email: req.body.email,
         }) 
-            .then(() => res.send('berhasil register'))
+            .then(() => {
+                req.session.currentUser = {                    
+                    name: req.body.usernameRegister,
+                    role: "user"
+                }
+                res.redirect(`/user/${req.session.currentUser.name}/dashboard`)
+            })
             .catch(err => res.send(err.message))
         }
     }
@@ -108,7 +109,7 @@ class UserController {
             ]
         })
 		.then(tr => {
-            console.log(tr.dataValues.Transactions);
+            // console.log(tr.dataValues.Transactions);
             res.render('dashboard-user', {master: tr, countDate, displayDate});
 			// res.send(tr.Transactions.map(x => x.dataValues));
             // res.send(tr.dataValues.Transactions);

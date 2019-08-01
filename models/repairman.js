@@ -9,7 +9,9 @@ module.exports = (sequelize, DataTypes) => {
 
     static findBySpecialist(query) {
       if (query == undefined || query === "") {
-        return this.findAll()
+        return this.findAll({
+          order: [['rating', 'DESC']]
+        })
 
       } else {
         return this.findAll({
@@ -41,7 +43,8 @@ module.exports = (sequelize, DataTypes) => {
                 }
               }
             ]
-          }
+          },
+          order: [['rating', 'DESC']]
         })
 
       }
