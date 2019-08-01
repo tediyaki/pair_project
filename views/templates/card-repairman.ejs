@@ -8,7 +8,15 @@
     <ul class="list-group list-group-flush">
       <li class="list-group-item">Specialist <%= specialist %></li>
       <li class="list-group-item">Cost <%= cost %></li>
-      <li class="list-group-item">Rating <%= rating %></li>
+      <li class="list-group-item">Rating 
+        <% let total = 0;
+        for (let i = 0; i < rating; i++) { total++%>
+          <span class="fa fa-star checked" style="color: orange"></span>
+        <% } 
+        for (let i = total; i < 5; i++) { %>
+          <span class="fa fa-star"></span>
+        <% } %>
+      </li>
     </ul>
     <div class="card-body">
       <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#exampleModal" temp-id="<%= id %>" temp-specialist="<%= specialist %>" onclick="transDataModal(this)">HIRE</button>
