@@ -1,6 +1,7 @@
-const Model = require('../models')
-const hashPass = require('../helper/passwordGenerate')
-const nodemailer = require('nodemailer')
+const Model = require('../models');
+const hashPass = require('../helper/passwordGenerate');
+const nodemailer = require('nodemailer');
+const countDate = require('../helper/countDate');
 
 class UserController {
 
@@ -75,7 +76,7 @@ class UserController {
         })
 		.then(tr => {
             console.log(tr.dataValues.Transactions);
-            res.render('dashboard-user', {master: tr});
+            res.render('dashboard-user', {master: tr, countDate});
 			// res.send(tr.Transactions.map(x => x.dataValues));
             // res.send(tr.dataValues.Transactions);
             
@@ -97,6 +98,7 @@ class UserController {
                 user_id: one.id,
                 repairman_id: req.body.repairman_id,
                 item: req.body.specialist,
+                warranty: 30,
                 booked_at: new Date(req.body.date)
             });
         })

@@ -19,7 +19,7 @@
                 <th scope="col">Repairman</th>
                 <th scope="col">Cost</th>
                 <th scope="col">Date</th>
-                <th scope="col">Warranty</th>
+                <th scope="col">Warranty Left</th>
                 <th scope="col">Rating</th>
                 <th scope="col">Actions</th>
               </tr>
@@ -28,13 +28,15 @@
               <% let temp = master.dataValues.Transactions; 
                   if (temp.length > 0) {
                     temp.forEach((el) => { %>
+                      <%# if (countDate(el.dataValues.booked_at, +el.dataValues.warranty)) %>
+                      <%# if (countDate(el.dataValues.booked_at, +el.dataValues.warranty)) %>
                     <tr class="table-primary">
                       <th scope="row">1</th>
                       <td><%= el.dataValues.item %></td>
                       <td><%= el.dataValues.Repairman.dataValues.username %></td>
                       <td><%= el.dataValues.Repairman.dataValues.cost %></td>
                       <td><%= el.dataValues.booked_at %></td>
-                      <td></td>
+                      <td><%= countDate(el.dataValues.booked_at, +el.dataValues.warranty) %></td>
                       <td>*****</td>
                       <td><button type="button" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure to cancel?');">Cancel</button></td>
                     </tr>
