@@ -31,15 +31,14 @@ module.exports = (sequelize, DataTypes) => {
           attributes: [
             [sequelize.fn('SUM', sequelize.col('repairman_rating')), 'total_rating'], 
             [sequelize.fn('COUNT', sequelize.col('repairman_id')), 'total']
-          ]
-        }, {
-            where: {
-                repairman_id: rp_id
-            }
+          ], 
+          where: {
+            repairman_id: rp_id
+          }
         })
       })    
     .then(tr => {
-
+      console.log(tr)
       let average = Number(tr[0].dataValues.total_rating) / Number(tr[0].dataValues.total)
   
         return self.associations.Repairman.target.update({
