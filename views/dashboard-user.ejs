@@ -3,76 +3,113 @@
   <%- include('templates/head'); %>
 <body>
   <%- include('templates/navbar', {username: master.dataValues.username, home: false}); %>
-    <div class="jumbotron">
-        <div class="ava-img">
-          <img src="<%= master.dataValues.avatar %>" alt="ava1">
-        </div>
-      </div>
+  <div class="jumbotron">
+    <div class="ava-img">
+      <img src="<%= master.dataValues.avatar %>" alt="ava1">
+    </div>
+  </div>
     
-      <section id="history-order">
-        <div class="container">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Item</th>
-                <th scope="col">Repairman</th>
-                <th scope="col">Cost</th>
-                <th scope="col">Date</th>
-                <th scope="col">Warranty Left</th>
-                <th scope="col">Rating</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% let temp = master.dataValues.Transactions; 
-                  if (temp.length > 0) {
-                    temp.forEach((el) => { %>
-                      <%# if (countDate(el.dataValues.booked_at, +el.dataValues.warranty)) %>
-                      <%# if (countDate(el.dataValues.booked_at, +el.dataValues.warranty)) %>
-                    <tr class="table-primary">
-                      <th scope="row">1</th>
-                      <td><%= el.dataValues.item %></td>
-                      <td><%= el.dataValues.Repairman.dataValues.username %></td>
-                      <td><%= el.dataValues.Repairman.dataValues.cost %></td>
-                      <td><%= el.dataValues.booked_at %></td>
-                      <td><%= countDate(el.dataValues.booked_at, +el.dataValues.warranty) %></td>
-                      <td>*****</td>
-                      <td><button type="button" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure to cancel?');">Cancel</button></td>
-                    </tr>
-                    <% })
-              } else { %>
-                <tr>
-                  <td colspan="8" class="text-center display-4">Empty</td>
-                </tr>
+  <section id="history-order">
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Item</th>
+            <th scope="col">Repairman</th>
+            <th scope="col">Cost</th>
+            <th scope="col">Date</th>
+            <th scope="col">Warranty Left</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% let temp = master.dataValues.Transactions; 
+          if (temp.length > 0) {
+            temp.forEach((el, i) => { %>
+            <% if (countDate(el.dataValues.booked_at, +el.dataValues.warranty).slice(-3) === 'ago') { %>
+            <tr class="table-danger">
+              <% } else { %>
+            <tr class="table-primary">
               <% } %>
-              <!-- <tr class="table-success">
-                <th scope="row">2</th>
-                <td>Table</td>
-                <td>Otto</td>
-                <td>$10000</td>
-                <td>23 Januari</td>
-                <td>Moment JS</td>
-                <td>***</td>
-                <td>
-                  <button type="button" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure to delete?');">Delete</button>
-                </td> -->
-              <!-- </tr>
-              <tr class="table-warning">
-                <th scope="row">3</th>
-                <td>Table</td>
-                <td>Otto</td>
-                <td>$10000</td>
-                <td>23 Januari</td>
-                <td>25 Januari</td>
-                <td><button type="button" class="btn btn-outline-danger btn-sm" disabled>Expired</button></td>
-                <td>
-                  <button type="button" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure to delete?');">Delete</button>
-                </td>
-              </tr> -->
-            </tbody>
-          </table> 
+              <th scope="row"><%= i+1 %></th>
+              <td><%= el.dataValues.item %></td>
+              <td><%= el.dataValues.Repairman.dataValues.username %></td>
+              <td><%= el.dataValues.Repairman.dataValues.cost %></td>
+              <td><%= el.dataValues.booked_at %></td>
+              
+              <% if (countDate(el.dataValues.booked_at, +el.dataValues.warranty).slice(-3) === 'ago') { %>
+
+              <td><button type="button" class="btn btn-outline-danger btn-sm" disabled>Expired</button></td>
+              <td>*****</td>
+              <td>
+                <button type="button" class="btn btn-outline-danger btn-sm" onclick="if (confirm('Are you sure to delete?')) window.location.href = '/user/<%=master.dataValues.username%>/del/<%=el.dataValues.id%>';"><i class="far fa-trash-alt"></i></button></td>
+              <% } else { %>
+              
+              <td><%= countDate(el.dataValues.booked_at, +el.dataValues.warranty) %></td>
+              <td>
+                <!-- <span class="fa fa-star checked"></span> -->
+                <%= el.dataValues.repairman_rating %>
+              </td>
+              <td>
+                <button type="button" class="btn btn-success btn-sm" transaction-id="<%= el.dataValues.id %>" data-toggle="modal" data-target="#exampleModal" onclick="transDataModal(this);">
+                  <i class="far fa-check-circle fa-lg"></i></i>
+                </button>
+
+                <button type="button" class="btn btn-danger btn-sm" onclick="if (confirm('Are you sure to cancel?')) window.location.href = '/user/<%=master.dataValues.username%>/del/<%=el.dataValues.id%>';">
+                  <i class="far fa-times-circle fa-lg"></i>
+                </button>
+              </td>
+          <% } %>
+              
+            </tr>
+            <% })
+          } else { %>
+            <tr>
+              <td colspan="8" class="text-center display-4">Empty</td>
+            </tr>
+          <% } %>
+            
+        </tbody>
+      </table> 
+    </div>
+  </section>
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="" method="POST">
+        <div class="modal-body">
+          <input type="hidden" name="transaction_id">
+          <input class="form-control" type="number" name="rating" min="1" max="5">
+          <textarea name="comment" class="form-control" aria-label="With textarea"></textarea>
         </div>
-      </section>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Send feedback</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  function transDataModal(data) {
+    let transactionId = data.getAttribute("transaction-id");
+    $('.modal .modal-body input[name=transaction_id]').val(transactionId);
+  }
+</script>
+  
 </body>
 </html>

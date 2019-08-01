@@ -115,27 +115,45 @@ class UserController {
             });
         })
         .then(x => {
-            res.render('alert', {username: req.params.username, status: 'success'});
+            // console.log(`/user/${req.params.username}/dashboard/`);
+            res.render('alert', {url: `/user/${req.params.username}/dashboard/`, status: "pesan-sukses"});
         })
         .catch(err => console.log(err));
     }
 
     static giveRating(req, res) {
         Model.Transaction.update({
-            rating: 5,
-            completed: true,
+            rating: req.body.rating,
+            comment: req.body.comment,
+            repairman_rating: +req.body.rating,
+            completed: true
         }, {
             where: {
-                user_id: 11,
-                repairman_id: 3,
-                completed: false || null
+                id: req.body.transaction_id,
+                completed: false
             }
         })
-            .then(a => {
-                console.log(a, "berhasil diupdate")
-                res.send('diupdate')
-            })
-            .catch(err => res.send(err))
+        .then(() => {
+            res.render('alert', {url: `/user/${req.params.username}/dashboard/`, status: "terimakasih"});
+        })
+        .catch(err => {
+            console.log(err);
+            res.send(err);
+        })
+    }
+
+    static deleteHistory(req, res) {
+        Model.Transaction.destroy({
+            where: {
+                id: req.params.transaction_id,
+            }
+        })
+        .then(() => {
+            res.render('alert', {url: `/user/${req.params.username}/dashboard/`, status: "hapus-berhasil"});
+        })
+        .catch((err) => {
+            res.send(err);
+        })
     }
 
     static logout (req, res) {

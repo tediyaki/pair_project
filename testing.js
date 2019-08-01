@@ -2,7 +2,12 @@
 // 2019-07-12
 // console.log(new Date('2019-07-12'));
 const moment = require('moment');
-let range = moment().add(21,'days');
+// let range = moment().add(21,'days');
 // console.log(convertDate(a));
-let warant = moment('2019-08-20T12:46:10.236');
-console.log(warant.fromNow());
+// let warant = moment('2019-08-20T12:46:10.236');
+// console.log(warant.fromNow());
+function displayDate(date, str) {
+  return moment(date).locale('id').format(str);
+}
+
+// console.log(displayDate(new Date(), "dddd, D MMMM YYYY"));
