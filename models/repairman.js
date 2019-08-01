@@ -61,8 +61,9 @@ module.exports = (sequelize, DataTypes) => {
 
   Repairman.addHook('beforeCreate', 'saltPass', (rman, options) => {
     let salt = bcrypt.genSaltSync(10);
-    user.password = bcrypt.hashSync(user.password, salt);
-    user.available = false
+    rman.password = bcrypt.hashSync(rman.password, salt);
+    rman.available = false
+    rman.rating = 0
   })
 
   return Repairman;
