@@ -8,7 +8,7 @@ const alreadyLogin = require('../middleware/authUser').userAlreadyLogin;
 const UserController = require('../controllers/user-controller');
 const RepairmanController = require('../controllers/repairman-controller');
 
-router.get('/:username/verify', UserController.verificationEmail)
+router.get('/:username/verify/:token', UserController.verificationEmail)
 router.get('/logout', UserController.logout)
 
 router.get('/register', alreadyLogin, UserController.showRegisterPage);

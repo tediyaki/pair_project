@@ -62,7 +62,8 @@ module.exports = (sequelize, DataTypes) => {
             .catch(err => {throw err})
         }
       }
-    }
+    },
+    token: DataTypes.STRING
   }, {
     sequelize
   });
@@ -70,6 +71,7 @@ module.exports = (sequelize, DataTypes) => {
   User.addHook('beforeCreate', 'hashPass', (user, option) => {
     user.secret = saltGenerate(user.username)
     user.password = hashPass(user.password, user.secret)
+    user.token = hashPass(user.username, user.secret)
     user.active = false
   })
 
@@ -87,9 +89,7 @@ module.exports = (sequelize, DataTypes) => {
       from: 'bria.hermann@ethereal.email', // sender address
       to: user.email, // list of receivers
       subject: 'Email verification ✔', // Subject line
-      // text: 'Hello', // plain text body
-      html: `<h2>Please click <a href="/user/${user.username}/verify">this link</a> to verify your email</h2> 
-            `// html body
+      html: `<h2>Please click <a href="/user/${user.username}/verify">this link</a> to verify your email</h2>`// html body
     };
 
     transporter.sendMail(mailOptions, (err, info) => {
