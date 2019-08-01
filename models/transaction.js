@@ -51,6 +51,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Transaction.addHook('beforeCreate', 'firstCreate', (transaksi, option) => {
     transaksi.completed = false;
+    transaksi.repairman_rating = 0;
   })
 
   return Transaction;

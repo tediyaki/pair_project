@@ -8,14 +8,25 @@ const session = require('express-session')
 class UserController {
 
     static verificationEmail(req, res) {
-        User.update({
-            active: true
-        }, {
+        Model.User.findOne({
             where: {
                 username: req.params.username
             }
         })
-            .then(() => res.send('email berhasil diaktivasi'))
+            .then((u) => {
+                if(u.token === req.params.token) {
+                    return Model.User.update({
+                        active: true
+                    }, {
+                        where: {
+                            username: req.params.username
+                        }
+                    })
+                } else {
+                    throw Error('Please verify through your email')
+                }                
+            })
+            .then(() => res.send('Verifikasi Berhasil'))
             .catch(err => res.send(err))
     }
 
@@ -44,7 +55,7 @@ class UserController {
     static loginUser(req, res) {
         // let uname = "PGriff"
         // let pass = "peter123"
-        console.log(req.body, "----------------")
+
         Model.User.findOne({
             where: {
                 username: req.body.username
