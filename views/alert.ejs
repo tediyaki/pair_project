@@ -46,8 +46,14 @@
         case "logout":
           sweetSuccess('Bye! :(');
           break;
+        case "success-login":
+          sweetSuccess('Login berhasil!');
+          break;
         case "gagal-tgl":
           sweetError('Tanggal sudah lewat :(');
+          break;
+        case "gagal-login":
+          sweetError('Username / Password salah :(');
           break;
       }
       

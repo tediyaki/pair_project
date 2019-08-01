@@ -66,6 +66,7 @@ class UserController {
         })
             .then(user => {
                 if(!user || (user.password !== hashPass(req.body.password, user.secret))) {
+                    // res.render('alert', {url: `/user/login`, status: "gagal-login"});
                     throw Error('wrong username / password')
                 } else {
 
@@ -77,11 +78,13 @@ class UserController {
 
                     console.log('berhasil login')
                     res.redirect(`/user/${user.username}/dashboard`)
+                    // res.render('alert', {url: `/user/${req.params.username}/home`, status: "success-login"});
                 }
             })
             .catch(err => {
                 console.log('wrong username/pass')
                 res.send(err.message)
+                // res.render('alert', {url: `/user/${req.params.username}/login`, status: "gagal-login"});
             })
     }
 
