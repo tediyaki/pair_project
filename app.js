@@ -19,8 +19,11 @@ app.use(['/error', '/user/:username/repairman', '/user/:username/dashboard', '/u
 app.use(express.urlencoded({extended: false}));
 
 app.get('/', (req, res) => {
-  res.send(req.sessionID)
-  // res.redirect('/');
+  if(req.session.currentUser) {
+    res.redirect(`/user/${req.session.currentUser.name}/dashboard`)
+  } else {
+    res.redirect('user/login')
+  }
 });
 
 app.use('/user', userRouter);

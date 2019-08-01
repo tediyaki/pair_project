@@ -1,9 +1,7 @@
 const Model = require('../models');
 const hashPass = require('../helper/passwordGenerate');
-const nodemailer = require('nodemailer');
 const countDate = require('../helper/countDate');
 const displayDate = require('../helper/displayDate');
-const session = require('express-session')
 
 class UserController {
 
@@ -35,21 +33,25 @@ class UserController {
         res.render('login');
     }
     
-    static showRegisterPage(req, res) {
-        res.send('helo-register')
-        // res.render('login');
-    }
+    // static showRegisterPage(req, res) {
+    //     res.send('helo-register')
+    //     // res.render('login');
+    // }
 
     static registerUser(req, res) {
+        if(req.body.passwordRegister !== req.body.password_confirmation) {
+            res.send("tidak sama")
+        } else {
         Model.User.create({
-            name: 'Jake',
-            password: 'jake123',
-            address: 'Jalan S I M',
-            email: 'iskandar.teddy93@gmail.com',
-            username: 'akuuserbaru'
+            name: req.body.full_name,
+            username: req.body.usernameRegister,
+            password: req.body.passwordRegister,
+            address: req.body.address,
+            email: req.body.email,
         }) 
             .then(() => res.send('berhasil register'))
             .catch(err => res.send(err.message))
+        }
     }
 
     static loginUser(req, res) {
@@ -65,13 +67,13 @@ class UserController {
                 if(!user || (user.password !== hashPass(req.body.password, user.secret))) {
                     throw Error('wrong username / password')
                 } else {
-                    console.log(req.session)
+
                     req.session.currentUser = {
                         id: user.id,
                         name: user.username,
                         role: "user"
                     }
-                    console.log(req.session)
+
                     console.log('berhasil login')
                     res.redirect(`/user/${user.username}/dashboard`)
                 }
@@ -176,7 +178,8 @@ class UserController {
     }
 
     static logout (req, res) {
-        req.session.destroy();
+
+        req.session.destroy()
         // res.render('alert', {url: `/user/login`, status: "logout"});
         res.redirect('/user/login')
     }

@@ -7,7 +7,7 @@ function userAuthentication(req, res, next) {
     } else {
         console.log("username di link ", req.params.username)
         console.log('lol salah', req.session.currentUser)
-        res.redirect('/home')
+        res.redirect('/user/login')
     }
 }
 

@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
   Transaction.addHook('afterBulkUpdate', 'averageRating', function(transaksi, option) {
     let self  = this
     let rp_id
-    console.log(transaksi.where)
+
     return Transaction.findByPk(transaksi.where.id)
       .then(trans => {
         rp_id = trans.repairman_id
@@ -39,9 +39,9 @@ module.exports = (sequelize, DataTypes) => {
         })
       })    
     .then(tr => {
-      console.log(tr)
+
       let average = Number(tr[0].dataValues.total_rating) / Number(tr[0].dataValues.total)
-      console.log(average)
+  
         return self.associations.Repairman.target.update({
             rating: average.toFixed(1)
         }, {
