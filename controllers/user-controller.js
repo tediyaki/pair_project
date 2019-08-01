@@ -127,7 +127,7 @@ class UserController {
                 req.session.currentUser.name = req.body.usernameEdit
                 res.redirect(`/user/${req.body.usernameEdit}/dashboard`)
             })
-            .catch(err => res.send(err))
+            .catch(err => res.send(err.message))
         }
         
     }
