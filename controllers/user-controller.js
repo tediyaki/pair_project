@@ -177,6 +177,7 @@ class UserController {
 
     static logout (req, res) {
         req.session.destroy();
+        console.log(req.session)
         res.redirect('/home')
     }
 }
