@@ -25,47 +25,71 @@
           </tr>
         </thead>
         <tbody>
-          <% let temp = master.dataValues.Transactions; 
-          if (temp.length > 0) {
-            temp.forEach((el, i) => { %>
-            <% if (countDate(el.dataValues.booked_at, +el.dataValues.warranty).slice(-3) === 'ago') { %>
-            <tr class="table-danger">
+          <!-- JIKA KONDISI PANJANG DATA HISTORY -->
+          <% let temp = master.dataValues.Transactions, daysWarranty = 21;
+          if (temp.length > 0) { 
+            temp.forEach((el, i) => {
+              if (el.dataValues.completed) {
+                if (countDate(el.dataValues.warranty, daysWarranty).slice(-3) === 'ago') { %>
+                  <tr class="table-danger">
+                    <th scope="row"><%= i+1 %></th>
+                    <td><%= el.dataValues.item %></td>
+                    <td><%= el.dataValues.Repairman.dataValues.username %></td>
+                    <td><%= el.dataValues.Repairman.dataValues.cost %></td>
+                    <td><%= displayDate(el.dataValues.booked_at, 'dddd, D MMMM YYYY') %></td>
+                    <td><button type="button" class="btn btn-outline-danger btn-sm" disabled>Expired</button></td>
+                    <td>
+                      <% for (let i = 0; i < el.dataValues.repairman_rating; i++) { %>
+                        <span class="fa fa-star checked" style="color: orange"></span>
+                      <% } %>
+                    </td>
+                    <td><button type="button" class="btn btn-danger btn-sm" onclick="if (confirm('Are you sure to delete?')) window.location.href = '/user/<%=master.dataValues.username%>/del/<%=el.dataValues.id%>';"><i class="far fa-trash-alt"></i></button></td>
+                  </tr>
+                <% } else { %>
+                  <tr class="table-success">
+                    <th scope="row"><%= i+1 %></th>
+                    <td><%= el.dataValues.item %></td>
+                    <td><%= el.dataValues.Repairman.dataValues.username %></td>
+                    <td><%= el.dataValues.Repairman.dataValues.cost %></td>
+                    <td><%= displayDate(el.dataValues.booked_at, 'dddd, D MMMM YYYY') %></td>
+                    <td><%= countDate(el.dataValues.warranty, daysWarranty) %></td>
+                    <td>
+                      <% for (let i = 0; i < el.dataValues.repairman_rating; i++) { %>
+                        <span class="fa fa-star checked" style="color: orange"></span>
+                      <% } %>
+                    </td>
+                    <td><button type="button" class="btn btn-danger btn-sm" onclick="if (confirm('Are you sure to delete?')) window.location.href = '/user/<%=master.dataValues.username%>/del/<%=el.dataValues.id%>';"><i class="far fa-trash-alt"></i></button></td>
+                  </tr>
+                <% } %>
               <% } else { %>
-            <tr class="table-primary">
+                <tr class="table-success">
+                  <th scope="row"><%= i+1 %></th>
+                  <td><%= el.dataValues.item %></td>
+                  <td><%= el.dataValues.Repairman.dataValues.username %></td>
+                  <td><%= el.dataValues.Repairman.dataValues.cost %></td>
+                  <td><%= displayDate(el.dataValues.booked_at, 'dddd, D MMMM YYYY') %></td>
+                  <td>...</td>
+                  <td>
+                    <% for (let i = 0; i < el.dataValues.repairman_rating; i++) { %>
+                      <span class="fa fa-star checked" style="color: orange"></span>
+                    <% } %>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-success btn-sm" transaction-id="<%= el.dataValues.id %>" data-toggle="modal" data-target="#exampleModal" onclick="transDataModal(this);">
+                      <i class="far fa-check-circle fa-lg"></i></i>
+                    </button>
+              
+                    <button type="button" class="btn btn-danger btn-sm" onclick="if (confirm('Are you sure to cancel?')) window.location.href = '/user/<%=master.dataValues.username%>/del/<%=el.dataValues.id%>';">
+                      <i class="far fa-times-circle fa-lg"></i>
+                    </button>
+                  </td>
+                </tr>
               <% } %>
-              <th scope="row"><%= i+1 %></th>
-              <td><%= el.dataValues.item %></td>
-              <td><%= el.dataValues.Repairman.dataValues.username %></td>
-              <td><%= el.dataValues.Repairman.dataValues.cost %></td>
-              <td><%= el.dataValues.booked_at %></td>
-              
-              <% if (countDate(el.dataValues.booked_at, +el.dataValues.warranty).slice(-3) === 'ago') { %>
+            <% }); %>
 
-              <td><button type="button" class="btn btn-outline-danger btn-sm" disabled>Expired</button></td>
-              <td>*****</td>
-              <td>
-                <button type="button" class="btn btn-outline-danger btn-sm" onclick="if (confirm('Are you sure to delete?')) window.location.href = '/user/<%=master.dataValues.username%>/del/<%=el.dataValues.id%>';"><i class="far fa-trash-alt"></i></button></td>
-              <% } else { %>
-              
-              <td><%= countDate(el.dataValues.booked_at, +el.dataValues.warranty) %></td>
-              <td>
-                <!-- <span class="fa fa-star checked"></span> -->
-                <%= el.dataValues.repairman_rating %>
-              </td>
-              <td>
-                <button type="button" class="btn btn-success btn-sm" transaction-id="<%= el.dataValues.id %>" data-toggle="modal" data-target="#exampleModal" onclick="transDataModal(this);">
-                  <i class="far fa-check-circle fa-lg"></i></i>
-                </button>
 
-                <button type="button" class="btn btn-danger btn-sm" onclick="if (confirm('Are you sure to cancel?')) window.location.href = '/user/<%=master.dataValues.username%>/del/<%=el.dataValues.id%>';">
-                  <i class="far fa-times-circle fa-lg"></i>
-                </button>
-              </td>
-          <% } %>
-              
-            </tr>
-            <% })
-          } else { %>
+            
+          <% } else { %>
             <tr>
               <td colspan="8" class="text-center display-4">Empty</td>
             </tr>

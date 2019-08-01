@@ -2,6 +2,7 @@ const Model = require('../models');
 const hashPass = require('../helper/passwordGenerate');
 const nodemailer = require('nodemailer');
 const countDate = require('../helper/countDate');
+const displayDate = require('../helper/displayDate');
 const session = require('express-session')
 
 class UserController {
@@ -91,7 +92,7 @@ class UserController {
         })
 		.then(tr => {
             console.log(tr.dataValues.Transactions);
-            res.render('dashboard-user', {master: tr, countDate});
+            res.render('dashboard-user', {master: tr, countDate, displayDate});
 			// res.send(tr.Transactions.map(x => x.dataValues));
             // res.send(tr.dataValues.Transactions);
             
@@ -113,7 +114,6 @@ class UserController {
                 user_id: one.id,
                 repairman_id: req.body.repairman_id,
                 item: req.body.specialist,
-                warranty: 30,
                 booked_at: new Date(req.body.date)
             });
         })
@@ -126,9 +126,11 @@ class UserController {
 
     static giveRating(req, res) {
         Model.Transaction.update({
+            // warranty: 30,
             rating: req.body.rating,
             comment: req.body.comment,
             repairman_rating: +req.body.rating,
+            warranty: new Date(),
             completed: true
         }, {
             where: {
