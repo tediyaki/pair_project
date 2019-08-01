@@ -8,8 +8,8 @@ const alreadyLogin = require('../middleware/authUser').userAlreadyLogin;
 const UserController = require('../controllers/user-controller');
 const RepairmanController = require('../controllers/repairman-controller');
 
-router.get('/:username/verify/:token', UserController.verificationEmail)
-router.get('/logout', UserController.logout)
+router.get('/logout', UserController.logout);
+router.get('/:username/verify/:token', UserController.verificationEmail);
 
 router.get('/register', alreadyLogin, UserController.showRegisterPage);
 router.post('/register', UserController.registerUser);
@@ -23,7 +23,7 @@ router.get('/:username/edit', userAuth, UserController.showEditForm);
 router.post('/:username/edit', UserController.updateUser);
 
 router.get('/:username/del/:transaction_id', UserController.deleteHistory);
-router.post('/:username/dashboard/', UserController.giveRating)
+router.post('/:username/dashboard', UserController.giveRating)
 
 router.get('/:username/dashboard', userAuth, UserController.showDashboard);
 router.post('/:username/edit', userAuth, UserController.updateUser);
