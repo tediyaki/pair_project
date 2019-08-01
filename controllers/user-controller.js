@@ -87,8 +87,12 @@ class UserController {
             },
             include: [{
                 model: Model.Transaction,
-                include: [Model.Repairman]
-            }]
+                include: [Model.Repairman],
+            }],
+            order: [
+                [Model.Transaction, 'completed', 'ASC'],
+                [Model.Transaction, 'booked_at', 'DESC']
+            ]
         })
 		.then(tr => {
             console.log(tr.dataValues.Transactions);
@@ -126,7 +130,6 @@ class UserController {
 
     static giveRating(req, res) {
         Model.Transaction.update({
-            // warranty: 30,
             rating: req.body.rating,
             comment: req.body.comment,
             repairman_rating: +req.body.rating,
