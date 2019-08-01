@@ -7,6 +7,7 @@ module.exports = {
       specialist: "window",
       cost: 20000,
       photo: "img/ava/1.png",
+      rating: 0,
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
@@ -14,6 +15,7 @@ module.exports = {
       specialist: "door",
       cost: 300000,
       photo: "img/ava/3.png",
+      rating: 0,
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
@@ -21,6 +23,7 @@ module.exports = {
       specialist: "floor",
       cost: 120000,
       photo: "img/ava/10.png",
+      rating: 0,
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
@@ -28,6 +31,7 @@ module.exports = {
       specialist: "roof",
       cost: 50000,
       photo: "img/ava/2.png",
+      rating: 0,
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
@@ -35,6 +39,7 @@ module.exports = {
       specialist: "door",
       cost: 350000,
       photo: "img/ava/4/png",
+      rating: 0,
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
@@ -42,6 +47,7 @@ module.exports = {
       specialist: "floor",
       cost: 125000,
       photo: "img/ava/5.png",
+      rating: 0,
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
@@ -49,6 +55,7 @@ module.exports = {
       specialist: "floor",
       cost: 110000,
       photo: "img/ava/6.png",
+      rating: 0,
       createdAt: new Date(),
       updatedAt: new Date()
     }])
