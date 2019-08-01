@@ -54,7 +54,7 @@ class UserController {
     static loginUser(req, res) {
         // let uname = "PGriff"
         // let pass = "peter123"
-        console.log(req.body, "----------------")
+
         Model.User.findOne({
             where: {
                 username: req.body.username

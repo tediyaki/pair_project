@@ -1,5 +1,6 @@
 const repairmanModel = require('../models').Repairman;
 const Op = require('../models').sequelize.Sequelize.Op
+const bcrypt = require('bcryptjs')
 
 class Repairman {
   static findAll(req, res) {
@@ -12,27 +13,33 @@ class Repairman {
       })
   }
 
-  // static registerRepairman(req, res) {
-  //   repairmanModel.create(req.body)
-  //     .then()
-  //     .catch()
-  // }
+  static registerRepairman(req, res) {
+    repairmanModel.create(req.body)
+      .then(() => res.send('berhasil register'))
+      .catch()
+  }
 
-  // static loginRepairman(req, res) {
-  //   repairmanModel.findOne({
-  //       where: {
-  //           username: req.body.username
-  //       }
-  //   })
-  //       .then(user => {
-  //           if(!user || (user.password !== hashPass(req.body.password, user.secret))) {
-  //               throw Error('wrong username / password')
-  //           } else {
-  //               res.send('login berhasil')
-  //           }
-  //       })
-  //       .catch(err => res.send(err.message))
-  // }
+  static loginRepairman(req, res) {
+    repairmanModel.findOne({
+        where: {
+            username: req.body.username
+        }
+    })
+        .then(rman => {
+            if(!rman || bcrypt.compareSync(req.body.password, rman.password)) {
+              throw Error('wrong username / password')
+            } else {
+                req.session.currentUser = {
+                    id: rman.id,
+                    name: rman.username,
+                    role: "repairman"
+                }
+          
+                res.redirect(`/repairman/${user.username}/dashboard`)
+            }
+        })
+        .catch(err => res.send(err.message))
+  }
   
 }
 

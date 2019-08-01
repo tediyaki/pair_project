@@ -1,4 +1,5 @@
 'use strict';
+const bcrypt = require('bcryptjs')
 module.exports = (sequelize, DataTypes) => {
   const Op = sequelize.Sequelize.Op
   class Repairman extends sequelize.Sequelize.Model {
@@ -57,6 +58,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize
   });
+
+  Repairman.addHook('beforeCreate', 'saltPass', (rman, options) => {
+    let salt = bcrypt.genSaltSync(10);
+    user.password = bcrypt.hashSync(user.password, salt);
+    user.available = false
+  })
 
   return Repairman;
 };

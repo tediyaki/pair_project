@@ -76,7 +76,7 @@ module.exports = (sequelize, DataTypes) => {
   })
 
   User.addHook('afterCreate', 'giveEmail', (user, options) => {
-    console.log(user.email)
+
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
