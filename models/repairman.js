@@ -1,5 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
+  const Op = sequelize.Sequelize.Op
   class Repairman extends sequelize.Sequelize.Model {
     static associate(models) {
       Repairman.hasMany(models.Transaction, {foreignKey: 'repairman_id'}) 
@@ -7,16 +8,10 @@ module.exports = (sequelize, DataTypes) => {
 
     static findBySpecialist(query) {
       if (query == undefined || query === "") {
-        return repairmanModel.findAll()
-        // .then((data) => {
-        //   // res.send(req.params.username);
-        //   res.render('home', {repairman: data, username: req.params.username});
-        // })
-        // .catch((err) => {
-        //   res.send(err);
-        // })
+        return this.findAll()
+
       } else {
-        return repairmanModel.findAll({
+        return this.findAll({
           where: {
             [Op.or]: [
               {
@@ -47,12 +42,7 @@ module.exports = (sequelize, DataTypes) => {
             ]
           }
         })
-        // .then((data) => {
-        //   res.render('home', {repairman: data, username: req.params.username});
-        // })
-        // .catch((err) => {
-        //   res.send(err);
-        // })
+
       }
     }
   }

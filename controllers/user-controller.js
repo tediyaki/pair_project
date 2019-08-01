@@ -41,16 +41,16 @@ class UserController {
     }
 
     static loginUser(req, res) {
-        let uname = "PGriff"
-        let pass = "peter123"
-        console.log('mulai login')
+        // let uname = "PGriff"
+        // let pass = "peter123"
+        console.log(req.body, "----------------")
         Model.User.findOne({
             where: {
-                username: uname
+                username: req.body.username
             }
         })
             .then(user => {
-                if(!user || (user.password !== hashPass(pass, user.secret))) {
+                if(!user || (user.password !== hashPass(req.body.password, user.secret))) {
                     throw Error('wrong username / password')
                 } else {
                     console.log(req.session)
@@ -61,10 +61,13 @@ class UserController {
                     }
                     console.log(req.session)
                     console.log('berhasil login')
-                    res.send('login berhasil')
+                    res.redirect(`/user/${user.username}/dashboard`)
                 }
             })
-            .catch(err => res.send(err.message))
+            .catch(err => {
+                console.log('wrong username/pass')
+                res.send(err.message)
+            })
     }
 
     static showEditForm(req, res) {
