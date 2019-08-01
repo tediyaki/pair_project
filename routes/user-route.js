@@ -11,12 +11,7 @@ router.get('/login', UserController.showLoginPage);
 router.post('/login', UserController.loginUser);
 
 
-<<<<<<< HEAD
 router.get('/:username/dashboard', UserController.showDashboard);
-=======
-
-router.get('/:username/dashboard', UserController.showHistory);
->>>>>>> 3c2ebd15c46c5e172f6a4c0b07ed90042840b731
 router.get('/:username/edit', UserController.showEditForm);
 router.post('/:username/edit', UserController.updateUser);
 
