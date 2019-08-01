@@ -1,5 +1,7 @@
 const express = require('express')
-const router = express.Router()
+const router = express.Router();
+
+router.use(['/register', '/login', '/:username/dashboard', '/:username/edit', '/:username/del/:transaction_id', '/:username/repairman'], express.static('public'));
 
 const UserController = require('../controllers/user-controller');
 const RepairmanController = require('../controllers/repairman-controller');
@@ -13,10 +15,13 @@ router.post('/login', UserController.loginUser);
 router.get('/:username/dashboard', UserController.showDashboard);
 router.get('/:username/edit', UserController.showEditForm);
 router.post('/:username/edit', UserController.updateUser);
+router.get('/:username/del/:transaction_id', UserController.deleteHistory);
+router.post('/:username/dashboard/', UserController.giveRating)
+// router.post('/:username/dashboard/', (req, res) => {
+  // res.send(req.body);
+// })
 
 // router.get('/testInput', UserController.registerUser)
-// router.post('/testInput2', UserController.giveRating)
-
 
 router.get('/:username/repairman', RepairmanController.findAll);
 router.post('/:username/repairman', UserController.bookRepairman);
