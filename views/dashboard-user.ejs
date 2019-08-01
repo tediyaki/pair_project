@@ -2,10 +2,10 @@
 <html lang="en">
   <%- include('templates/head'); %>
 <body>
-  <%- include('templates/navbar', {username: master.username, home: false}); %>
+  <%- include('templates/navbar', {username: master.dataValues.username, home: false}); %>
     <div class="jumbotron">
         <div class="ava-img">
-          <img src="img/ava/3.png" alt="ava1">
+          <img src="<%= master.dataValues.avatar %>" alt="ava1">
         </div>
       </div>
     

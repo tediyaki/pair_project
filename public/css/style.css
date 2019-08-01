@@ -6,6 +6,16 @@ body,
   padding: 0;
 }
 
+.ava-img {
+  height: 250px;
+  width: 250px;
+}
+
+.ava-img img {
+  height: 100%;
+  width: 100%;
+}
+
 .card-box {
   margin-top: 30px;
   margin-bottom: 30px;

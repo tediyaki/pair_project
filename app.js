@@ -7,8 +7,12 @@ const userRouter = require('./routes/user-route');
 // const repairmanRouter = require('./routes/repairman-route');
 
 app.set('view engine', 'ejs');
-app.use(['/error', '/user/:username/repairman', '/user/johD/dashboard', '/user/login'], express.static('public'));
+app.use(['/error', '/user/:username/repairman', '/user/:username/dashboard', '/user/login'], express.static('public'));
 app.use(express.urlencoded({extended: false}));
+
+app.get('/', (req, res) => {
+  res.redirect('/');
+});
 
 app.use('/user', userRouter);
 // app.use('/', repairmanRouter);

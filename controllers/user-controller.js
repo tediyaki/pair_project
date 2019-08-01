@@ -101,7 +101,7 @@ class UserController {
             });
         })
         .then(x => {
-            res.render('alert', {status: 'success'});
+            res.render('alert', {username: req.params.username, status: 'success'});
         })
         .catch(err => console.log(err));
     }

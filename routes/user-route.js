@@ -10,7 +10,6 @@ router.post('/register', UserController.registerUser);
 router.get('/login', UserController.showLoginPage);
 router.post('/login', UserController.loginUser);
 
-
 router.get('/:username/dashboard', UserController.showDashboard);
 router.get('/:username/edit', UserController.showEditForm);
 router.post('/:username/edit', UserController.updateUser);
