@@ -2,20 +2,21 @@ const Model = require('../models');
 const hashPass = require('../helper/passwordGenerate');
 const nodemailer = require('nodemailer');
 const countDate = require('../helper/countDate');
+const session = require('express-session')
 
 class UserController {
 
-    static verificationEmail(req, res) {
-        User.update({
-            active: true
-        }, {
-            where: {
-                id: req.query.id
-            }
-        })
-            .then(() => res.send('email berhasil diaktivasi'))
-            .catch(err => res.send(err))
-    }
+    // static verificationEmail(req, res) {
+    //     User.update({
+    //         active: true
+    //     }, {
+    //         where: {
+    //             id: req.query.id
+    //         }
+    //     })
+    //         .then(() => res.send('email berhasil diaktivasi'))
+    //         .catch(err => res.send(err))
+    // }
 
     static showLoginPage(req, res) {
         // res.send('helo-login')
@@ -40,15 +41,26 @@ class UserController {
     }
 
     static loginUser(req, res) {
+        let uname = "PGriff"
+        let pass = "peter123"
+        console.log('mulai login')
         Model.User.findOne({
             where: {
-                username: req.body.username
+                username: uname
             }
         })
             .then(user => {
-                if(!user || (user.password !== hashPass(req.body.password, user.secret))) {
+                if(!user || (user.password !== hashPass(pass, user.secret))) {
                     throw Error('wrong username / password')
                 } else {
+                    console.log(req.session)
+                    req.session.currentUser = {
+                        id: user.id,
+                        name: user.username,
+                        role: "user"
+                    }
+                    console.log(req.session)
+                    console.log('berhasil login')
                     res.send('login berhasil')
                 }
             })

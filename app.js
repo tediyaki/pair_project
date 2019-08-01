@@ -1,17 +1,25 @@
 const express = require('express');
 const app = express();
 const PORT = 2420;
+const session = require('express-session')
 const moment = require('moment');
 
 const userRouter = require('./routes/user-route');
 // const repairmanRouter = require('./routes/repairman-route');
 
 app.set('view engine', 'ejs');
+app.use(session({
+  secret: 'FuRniTur3S3v1Ce',
+  resave: false,
+  saveUninitialized: true
+}))
+
 app.use(['/error', '/user/:username/repairman', '/user/:username/dashboard', '/user/login'], express.static('public'));
 app.use(express.urlencoded({extended: false}));
 
 app.get('/', (req, res) => {
-  res.redirect('/');
+  res.send(req.sessionID)
+  // res.redirect('/');
 });
 
 app.use('/user', userRouter);
