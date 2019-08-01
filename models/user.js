@@ -22,16 +22,13 @@ module.exports = (sequelize, DataTypes) => {
           msg: "Email format is incorrect"
         },
         mustUnique: function(value) {
-          return User.findOne({
+          return User.findAll({
             where: {
-              email: value,
-              id: {
-                [Op.ne]: this.id
-              }
+              email: value
             }
           })
             .then(mail => {
-              if(mail) {
+              if(mail.length > 1) {
                 throw new Error("This email is already in use")
               }
             })
@@ -46,16 +43,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         mustUnique: function(value) {
-          return User.findOne({
+          console.log(this.id)
+          return User.findAll({
             where: {
-              username: value,
-              id: {
-                [Op.ne]: this.id
-              }
+              username: value
             }
           })
-            .then(mail => {
-              if(mail) {
+            .then(username => {
+              if(username.length > 1) {
+
                 throw new Error("Telat pilih username ini")
               }
             })

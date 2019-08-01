@@ -116,7 +116,7 @@ class UserController {
                     password: hashPass(req.body.passwordEdit, one.secret),
                     address: req.body.address,
                     email: req.body.email,
-                    username: req.body.username
+                    username: req.body.usernameEdit
                 }, {
                     where: {
                         username: req.params.username
@@ -124,8 +124,8 @@ class UserController {
                 })
             })
             .then(() => {
-                req.session.currentUser.name = req.body.username
-                res.redirect(`/user/${req.body.username}/dashboard`)
+                req.session.currentUser.name = req.body.usernameEdit
+                res.redirect(`/user/${req.body.usernameEdit}/dashboard`)
             })
             .catch(err => res.send(err))
         }
