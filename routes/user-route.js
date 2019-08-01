@@ -9,7 +9,7 @@ const UserController = require('../controllers/user-controller');
 const RepairmanController = require('../controllers/repairman-controller');
 
 router.get('/logout', UserController.logout);
-router.get('/:username/verify/:token', UserController.verificationEmail);
+router.get('/:username/verify/:token', userAuth, UserController.verificationEmail);
 
 // router.get('/register', alreadyLogin, UserController.showRegisterPage);
 
