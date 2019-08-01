@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router();
 
-router.use(['/register', '/login', '/:username/dashboard', '/:username/edit', '/:username/del/:transaction_id', '/:username/repairman'], express.static('public'));
+router.use(['/register', '/login', '/:username/dashboard', '/:username/edit', '/:username/del/:transaction_id', '/:username/home'], express.static('public'));
 
 const userAuth = require('../middleware/authUser').userAuthentication;
 const alreadyLogin = require('../middleware/authUser').userAlreadyLogin;
@@ -32,7 +32,7 @@ router.post('/:username/edit', userAuth, UserController.updateUser);
 
 // router.get('/testInput', UserController.registerUser)
 
-router.get('/:username/repairman', userAuth, RepairmanController.findAll);
-router.post('/:username/repairman', UserController.bookRepairman);
+router.get('/:username/home', userAuth, RepairmanController.findAll);
+router.post('/:username/home', UserController.bookRepairman);
 
 module.exports = router

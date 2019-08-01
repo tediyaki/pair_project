@@ -19,6 +19,16 @@
       })
     }
 
+    function sweetError(str) {
+      Swal.fire({
+        type: 'error',
+        title: 'Yahh...',
+        text: str,
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+
     let input = $('#input').val();
     let url = $('#url').val();
 
@@ -36,13 +46,16 @@
         case "logout":
           sweetSuccess('Bye! :(');
           break;
+        case "gagal-tgl":
+          sweetError('Tanggal sudah lewat :(');
+          break;
       }
       
       setInterval(() => {
         window.location.href = url;
-      }, 1000);
+      }, 1500);
       clearInterval(interval);
-    }, 250);
+    }, 300);
     
 
   </script>

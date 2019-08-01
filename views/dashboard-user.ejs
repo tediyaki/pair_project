@@ -4,8 +4,10 @@
 <body>
   <%- include('templates/navbar', {username: master.dataValues.username, home: false}); %>
   <div class="jumbotron">
-    <div class="ava-img">
-      <img src="<%= master.dataValues.photo %>" alt="ava2">
+    <div class="container">
+      <div class="ava-img">
+        <img src="<%= master.dataValues.photo %>" alt="ava2">
+      </div>
     </div>
   </div>
   
@@ -39,8 +41,12 @@
                     <td><%= displayDate(el.dataValues.booked_at, 'dddd, D MMMM YYYY') %></td>
                     <td><button type="button" class="btn btn-outline-danger btn-sm" disabled>Expired</button></td>
                     <td>
-                      <% for (let i = 0; i < el.dataValues.repairman_rating; i++) { %>
+                      <% let total = 0;
+                      for (let i = total; i < el.dataValues.repairman_rating; i++) { total++%>
                         <span class="fa fa-star checked" style="color: orange"></span>
+                      <% } 
+                      for (let i = total; i < 5; i++) { %>
+                        <span class="fa fa-star"></span>
                       <% } %>
                     </td>
                     <td><button type="button" class="btn btn-danger btn-sm" onclick="if (confirm('Are you sure to delete?')) window.location.href = '/user/<%=master.dataValues.username%>/del/<%=el.dataValues.id%>';"><i class="far fa-trash-alt"></i></button></td>
@@ -54,8 +60,12 @@
                     <td><%= displayDate(el.dataValues.booked_at, 'dddd, D MMMM YYYY') %></td>
                     <td><%= countDate(el.dataValues.warranty, daysWarranty) %></td>
                     <td>
-                      <% for (let i = 0; i < el.dataValues.repairman_rating; i++) { %>
+                      <% let total = 0;
+                      for (let i = total; i < el.dataValues.repairman_rating; i++) { total++%>
                         <span class="fa fa-star checked" style="color: orange"></span>
+                      <% } 
+                      for (let i = total; i < 5; i++) { %>
+                        <span class="fa fa-star"></span>
                       <% } %>
                     </td>
                     <td><button type="button" class="btn btn-danger btn-sm" onclick="if (confirm('Are you sure to delete?')) window.location.href = '/user/<%=master.dataValues.username%>/del/<%=el.dataValues.id%>';"><i class="far fa-trash-alt"></i></button></td>
@@ -70,8 +80,12 @@
                   <td><%= displayDate(el.dataValues.booked_at, 'dddd, D MMMM YYYY') %></td>
                   <td>...</td>
                   <td>
-                    <% for (let i = 0; i < el.dataValues.repairman_rating; i++) { %>
+                    <% let total = 0;
+                    for (let i = total; i < el.dataValues.repairman_rating; i++) { total++%>
                       <span class="fa fa-star checked" style="color: orange"></span>
+                    <% } 
+                    for (let i = total; i < 5; i++) { %>
+                      <span class="fa fa-star"></span>
                     <% } %>
                   </td>
                   <td>
@@ -115,7 +129,7 @@
       <form action="" method="POST">
         <div class="modal-body">
           <input type="hidden" name="transaction_id">
-          <input class="form-control" type="number" name="rating" min="1" max="5">
+          <input class="form-control" type="number" name="rating" min="1" max="5" required>
           <textarea name="comment" class="form-control" aria-label="With textarea"></textarea>
         </div>
         <div class="modal-footer">
