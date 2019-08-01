@@ -3,54 +3,13 @@ const Op = require('../models').sequelize.Sequelize.Op
 
 class Repairman {
   static findAll(req, res) {
-    if (req.query.q == undefined || req.query.q === "") {
-      repairmanModel.findAll()
+    repairmanModel.findBySpecialist(req.query.q)
       .then((data) => {
-        // res.send(req.params.username);
-        res.render('home', {repairman: data, username: req.params.username});
+          res.render('home', {repairman: data, username: req.params.username});
       })
       .catch((err) => {
         res.send(err);
       })
-    } else {
-      repairmanModel.findAll({
-        where: {
-          [Op.or]: [
-            {
-              username: {
-                [Op.like]: `%${req.query.q}`
-              }
-            }, {
-              username: {
-                [Op.like]: `${req.query.q}%`
-              }
-            }, {
-              username: {
-                [Op.like]: `%${req.query.q}%`
-              }
-            }, {
-              specialist: {
-                [Op.like]: `%${req.query.q}`
-              }
-            }, {
-              specialist: {
-                [Op.like]: `${req.query.q}%`
-              }
-            }, {
-              specialist: {
-                [Op.like]: `%${req.query.q}%`
-              }
-            }
-          ]
-        }
-      })
-      .then((data) => {
-        res.render('home', {repairman: data, username: req.params.username});
-      })
-      .catch((err) => {
-        res.send(err);
-      })
-    }
   }
 
   // static registerRepairman(req, res) {

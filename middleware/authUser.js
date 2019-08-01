@@ -1,4 +1,4 @@
-const session = require('express-session')
+// const session = require('express-session')
 
 function userAuthentication(req, res, next) {
     if(req.session.currentUser && req.params.username === req.session.currentUser.name && req.session.currentUser.role === 'user') {

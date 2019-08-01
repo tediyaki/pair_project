@@ -6,17 +6,17 @@ const session = require('express-session')
 
 class UserController {
 
-    // static verificationEmail(req, res) {
-    //     User.update({
-    //         active: true
-    //     }, {
-    //         where: {
-    //             id: req.query.id
-    //         }
-    //     })
-    //         .then(() => res.send('email berhasil diaktivasi'))
-    //         .catch(err => res.send(err))
-    // }
+    static verificationEmail(req, res) {
+        User.update({
+            active: true
+        }, {
+            where: {
+                username: req.params.username
+            }
+        })
+            .then(() => res.send('email berhasil diaktivasi'))
+            .catch(err => res.send(err))
+    }
 
     static showLoginPage(req, res) {
         // res.send('helo-login')
@@ -33,10 +33,10 @@ class UserController {
             name: 'Jake',
             password: 'jake123',
             address: 'Jalan S I M',
-            email: 'jake12@mail.com',
-            username: 'jak3beam'
+            email: 'iskandar.teddy93@gmail.com',
+            username: 'akuuserbaru'
         }) 
-            .then()
+            .then(() => res.send('berhasil register'))
             .catch(err => res.send(err.message))
     }
 
@@ -136,6 +136,11 @@ class UserController {
                 res.send('diupdate')
             })
             .catch(err => res.send(err))
+    }
+
+    static logout (req, res) {
+        req.session.destroy();
+        res.redirect('/home')
     }
 }
 

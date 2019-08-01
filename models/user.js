@@ -1,7 +1,7 @@
 'use strict';
 const saltGenerate = require('../helper/saltGenerate')
 const hashPass = require('../helper/passwordGenerate')
-
+const nodemailer = require('nodemailer')
 
 module.exports = (sequelize, DataTypes) => {
   const Op = sequelize.Sequelize.Op
@@ -20,23 +20,23 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: {
           args: true,
           msg: "Email format is incorrect"
-        },
-        mustUnique: function(value) {
-          return User.findOne({
-            where: {
-              email: value,
-              id: {
-                [Op.ne]: this.id
-              }
-            }
-          })
-            .then(mail => {
-              if(mail) {
-                throw new Error("This email is already in use")
-              }
-            })
-            .catch(err => {throw err})
         }
+        // mustUnique: function(value) {
+        //   return User.findOne({
+        //     where: {
+        //       email: value,
+        //       id: {
+        //         [Op.ne]: this.id
+        //       }
+        //     }
+        //   })
+        //     .then(mail => {
+        //       if(mail) {
+        //         throw new Error("This email is already in use")
+        //       }
+        //     })
+        //     .catch(err => {throw err})
+        // }
       }
     },
     avatar: DataTypes.BLOB,
@@ -73,33 +73,33 @@ module.exports = (sequelize, DataTypes) => {
     user.active = false
   })
 
-  // User.addHook('afterCreate', 'giveEmail', (user, options) => {
-  //   const transporter = nodemailer.createTransport({
-  //     host: 'smtp.ethereal.email',
-  //     port: 587,
-  //     auth: {
-  //         user: 'bria.hermann@ethereal.email',
-  //         pass: 'x2ya8zqtXFAfaunjJ7'
-  //     }
-  //   });
+  User.addHook('afterCreate', 'giveEmail', (user, options) => {
+    console.log(user.email)
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+          user: '666blac.kid666@gmail.com',
+          pass: 'Hacker99'
+      }
+    });
 
-  //   let mailOptions = {
-  //     from: '"bria.hermann@ethereal.email', // sender address
-  //     to: user.email, // list of receivers
-  //     subject: 'Email verification ✔', // Subject line
-  //     text: 'Hello world?', // plain text body
-  //     html: `<h1>Please click this link to verify your email</h1> 
-  //           <a href=""></a>`// html body
-  //   };
+    let mailOptions = {
+      from: 'bria.hermann@ethereal.email', // sender address
+      to: user.email, // list of receivers
+      subject: 'Email verification ✔', // Subject line
+      // text: 'Hello', // plain text body
+      html: `<h2>Please click <a href="/user/${user.username}/verify">this link</a> to verify your email</h2> 
+            `// html body
+    };
 
-  //   transporter.sendMail(mailOptions, (err, info) => {
-  //     if(err) {
-  //       console.log(err)
-  //     } else {
-  //       console.log(info.messageId);
-  //     }
-  //   })
-  // })
+    transporter.sendMail(mailOptions, (err, info) => {
+      if(err) {
+        console.log(err, "ada error")
+      } else {
+        console.log(info, "berhasil dikirim");
+      }
+    })
+  })
 
   return User;
 };
