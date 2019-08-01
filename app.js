@@ -4,10 +4,11 @@ const PORT = 2420;
 const session = require('express-session')
 const moment = require('moment');
 
-const userRouter = require('./routes/user-route');
-// const repairmanRouter = require('./routes/repairman-route');
-
 app.set('view engine', 'ejs');
+
+const userRouter = require('./routes/user-route');
+const repairmanRouter = require('./routes/repairman-route');
+
 app.use(session({
   secret: 'FuRniTur3S3v1Ce',
   resave: false,
@@ -23,7 +24,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/user', userRouter);
-// app.use('/', repairmanRouter);
+app.use('/repairman', repairmanRouter);
 
 app.get('/error', (req, res) => {
   res.render('error');

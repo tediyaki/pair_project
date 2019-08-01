@@ -41,6 +41,22 @@ class Repairman {
         .catch(err => res.send(err.message))
   }
   
+  static showDashboard(req, res) {
+    repairmanModel.findOne({
+      where: {
+        username: req.params.username
+      }
+    })
+    .then((data) => {
+      // console.log(data.dataValues.avatar);
+      res.render('dashboard-repairman', {data});
+      // res.send(data.photo)
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    })
+  }
 }
 
 module.exports = Repairman;
