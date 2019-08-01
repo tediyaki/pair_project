@@ -109,7 +109,7 @@ class UserController {
             ]
         })
 		.then(tr => {
-            // console.log(tr.dataValues.Transactions);
+            console.log(tr.dataValues);
             res.render('dashboard-user', {master: tr, countDate, displayDate});
 			// res.send(tr.Transactions.map(x => x.dataValues));
             // res.send(tr.dataValues.Transactions);
