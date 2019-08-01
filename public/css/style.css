@@ -6,6 +6,11 @@ body,
   padding: 0;
 }
 
+.jumbotron {
+  background-image: url(../img/metal-bg.jpg);
+  min-height: 400px;
+}
+
 .ava-img {
   height: 250px;
   width: 250px;
