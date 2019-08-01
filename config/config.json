@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "furtniture_service",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "nybrrxtwkzsngy",
+    "password": "6d0dcbec71c62a6ef7d23799258e5d0cb212d6f5065f155095e75dcf5c16e65c",
+    "database": "dcgod65bec84f1",
+    "host": "ec2-174-129-231-100.compute-1.amazonaws.com",
+    "dialect": "postgres"
+  }
+}
