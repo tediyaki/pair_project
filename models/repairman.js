@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
     cost: DataTypes.INTEGER,
     available: DataTypes.BOOLEAN,
     rating: DataTypes.FLOAT,
-    avatar: DataTypes.BLOB
+    photo: DataTypes.STRING
   }, {
     sequelize
   });
