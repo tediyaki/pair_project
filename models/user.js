@@ -89,7 +89,7 @@ module.exports = (sequelize, DataTypes) => {
       from: 'bria.hermann@ethereal.email', // sender address
       to: user.email, // list of receivers
       subject: 'Email verification ✔', // Subject line
-      html: `<h2>Please click <a href="/user/${user.username}/verify">this link</a> to verify your email</h2>`// html body
+      html: `<h2>Please click <a href="/user/${user.username}/verify/${user.token}">this link</a> to verify your email</h2>`// html body
     };
 
     transporter.sendMail(mailOptions, (err, info) => {
