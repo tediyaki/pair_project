@@ -58,10 +58,6 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     }
-
-    // static findByName(query) {
-    //   
-    // }
   }
   Repairman.init({
     username: DataTypes.STRING,
