@@ -18,6 +18,10 @@
   </div>
   <% if (home) { %>
     <form action="" class="form-inline" method="GET">
+      <select class="custom-select" id="inputGroupSelect01" name="by">
+        <option value="name">By Name</option>
+        <option value="specialist">By Speciallist</option>
+      </select>
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>

@@ -7,48 +7,61 @@ module.exports = (sequelize, DataTypes) => {
       Repairman.hasMany(models.Transaction, {foreignKey: 'repairman_id'}) 
     }
 
-    static findBySpecialist(query) {
+    static findBySpecialist(query, searchBy) {
       if (query == undefined || query === "") {
         return this.findAll({
           order: [['rating', 'DESC']]
         })
-
       } else {
-        return this.findAll({
-          where: {
-            [Op.or]: [
-              {
-                username: {
-                  [Op.like]: `%${query}`
+        if (searchBy === 'specialist') {
+          return this.findAll({
+            where: {
+              [Op.or]: [
+                {
+                  specialist: {
+                    [Op.like]: `%${query}`
+                  }
+                }, {
+                  specialist: {
+                    [Op.like]: `${query}%`
+                  }
+                }, {
+                  specialist: {
+                    [Op.like]: `%${query}%`
+                  }
                 }
-              }, {
-                username: {
-                  [Op.like]: `${query}%`
+              ]
+            },
+            order: [['rating', 'DESC']]
+          })
+        } else if (searchBy === 'name') {
+          return this.findAll({
+            where: {
+              [Op.or]: [
+                {
+                  username: {
+                    [Op.like]: `%${query}`
+                  }
+                }, {
+                  username: {
+                    [Op.like]: `${query}%`
+                  }
+                }, {
+                  username: {
+                    [Op.like]: `%${query}%`
+                  }
                 }
-              }, {
-                username: {
-                  [Op.like]: `%${query}%`
-                }
-              }, {
-                specialist: {
-                  [Op.like]: `%${query}`
-                }
-              }, {
-                specialist: {
-                  [Op.like]: `${query}%`
-                }
-              }, {
-                specialist: {
-                  [Op.like]: `%${query}%`
-                }
-              }
-            ]
-          },
-          order: [['rating', 'DESC']]
-        })
-
+              ]
+            },
+            order: [['rating', 'DESC']]
+          })
+        }
       }
     }
+
+    // static findByName(query) {
+    //   
+    // }
   }
   Repairman.init({
     username: DataTypes.STRING,

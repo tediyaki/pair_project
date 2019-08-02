@@ -55,7 +55,7 @@ module.exports = {
         name: 'Peter Griffin',
         username: 'PGriff',
         address: 'family street',
-        email: '@mail.com',
+        email: 'peter@mail.com',
         active: false,
         photo: "img/ava/10.png",
         createdAt: new Date(),

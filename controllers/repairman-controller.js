@@ -4,9 +4,10 @@ const bcrypt = require('bcryptjs')
 
 class Repairman {
   static findAll(req, res) {
-    repairmanModel.findBySpecialist(req.query.q)
+    // res.send(req.body);
+    repairmanModel.findBySpecialist(req.query.q, req.query.by)
       .then((data) => {
-          res.render('home', {repairman: data, username: req.params.username});
+        res.render('home', {repairman: data, username: req.params.username});
       })
       .catch((err) => {
         res.send(err);
