@@ -26,7 +26,7 @@ class UserController {
                 }                
             })
             .then(() => res.send('Verifikasi Berhasil'))
-            .catch(err => res.send(err))
+            .catch(err => res.render('error', {msg: err.message}))
     }
 
     static showLoginPage(req, res) {
@@ -83,7 +83,7 @@ class UserController {
             })
             .catch(err => {
   
-                res.send(err.message)
+                res.render('error', {msg: err.message})
                 // res.render('alert', {url: `/user/${req.params.username}/login`, status: "gagal-login"});
             })
     }
@@ -98,7 +98,7 @@ class UserController {
                 res.render('edit-user', {user})
             })
             .catch(err => {
-                res.send(err)
+                res.render('error', {msg: err.message})
             })       
     }
 
@@ -128,7 +128,7 @@ class UserController {
                 req.session.currentUser.name = req.body.usernameEdit
                 res.redirect(`/user/${req.body.usernameEdit}/dashboard`)
             })
-            .catch(err => res.send(err.message))
+            .catch(err => res.render('error', {msg: err.message}))
         }
         
     }
@@ -157,7 +157,7 @@ class UserController {
 		})
 		.catch(err => {
             console.log(err);
-            res.send(err)
+            res.render('error', {msg: err.message})
         })
     }
 
@@ -203,7 +203,7 @@ class UserController {
         })
         .catch(err => {
             console.log(err);
-            res.send(err);
+            res.render('error', {msg: err.message});
         })
     }
 
@@ -217,7 +217,7 @@ class UserController {
             res.render('alert', {url: `/user/${req.params.username}/dashboard/`, status: "hapus-berhasil"});
         })
         .catch((err) => {
-            res.send(err);
+            res.render('error', {msg: err.message});
         })
     }
 
