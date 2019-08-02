@@ -17,19 +17,20 @@ module.exports = (sequelize, DataTypes) => {
         return this.findAll({
           where: {
             [Op.or]: [
+              // {
+              //   username: {
+              //     [Op.like]: `%${query}`
+              //   }
+              // }, {
+              //   username: {
+              //     [Op.like]: `${query}%`
+              //   }
+              // }, {
+              //   username: {
+              //     [Op.like]: `%${query}%`
+              //   }
+              // }, 
               {
-                username: {
-                  [Op.like]: `%${query}`
-                }
-              }, {
-                username: {
-                  [Op.like]: `${query}%`
-                }
-              }, {
-                username: {
-                  [Op.like]: `%${query}%`
-                }
-              }, {
                 specialist: {
                   [Op.like]: `%${query}`
                 }
